@@ -24,7 +24,7 @@ void LineSensorAdapter::tick() {
     _detected = false;
     _lost     = false;
 
-    int raw = readMedian();
+    int raw = _readMedian();
 
     _emaScaled += (static_cast<int32_t>(raw) * EMA_DEN - _emaScaled) * EMA_NUM / EMA_DEN;
     int filtered = _emaScaled / EMA_DEN;
