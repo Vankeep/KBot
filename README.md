@@ -106,7 +106,7 @@ void loop() {
 
 ## Датчик угла
 
-Датчик поворота (потенциометр), который измеряет угол от 0 до 180 градусов.
+Датчик угла (потенциометр), который измеряет угол от 0 до 180 градусов.
 
 **Подключение:** Разъемы XP8, XP9, XP10, XP11
 
@@ -127,7 +127,7 @@ void setup() {
 void loop() {
     bot.update();
     int angle = bot.angleSensor1.getAngle();
-    bot.servo.setAngle(Servos::SRV1, angle);
+    bot.servo.setAngle(Servos::Name::SRV1, angle);
 }
 ```
 
@@ -135,7 +135,7 @@ void loop() {
 
 ## Кнопки и концевые выключатели
 
-Датчики нажатия. Кнопка нажимается пальцем, концевой выключатель срабатывает при столкновении.
+Кнопка нажимается пальцем, концевой выключатель срабатывает при столкновении.
 
 **Подключение:** Разъемы XP8, XP9, XP10, XP11, XP13
 
@@ -209,7 +209,7 @@ void loop() {
 
 ## Датчик цвета
 
-Датчик для распознавания цветов: красный, зеленый, синий, белый, черный.
+Датчик для распознавания цветов.
 
 **Подключение:** I2C порт
 
@@ -217,7 +217,7 @@ void loop() {
 
 **Методы:**
 - `void begin(uint8_t address = 0x29)` - Инициализация датчика (адрес по умолчанию 0x29)
-- `void calibrateWhite()` - Калибровка по белому листу (вызывать при включении!)
+- `void calibrateWhite()` - Калибровка по белому листу (вызывать при включении)
 - `void getRGB(int &r, int &g, int &b)` - Получить значения RGB цвета
 - `bool isRed(int r, int g, int b)` - Проверить, красный ли это цвет
 - `bool isGreen(int r, int g, int b)` - Проверить, зеленый ли это цвет
@@ -230,7 +230,7 @@ void loop() {
 ```cpp
 void setup() {
     bot.begin();
-    bot.colorSensor.calibrateWhite(); // Калибровка по белому!
+    bot.colorSensor.calibrateWhite(); // Калибровка по белому
 }
 
 void loop() {
@@ -298,7 +298,7 @@ void loop() {
 
 Управление колесами робота. Скорость от -200 (назад) до 200 (вперед).
 
-**Подключение:** Встроенные разъемы моторов XP14A, XP15A, XP14B, XP15B
+**Имена:** XP14A, XP15A, XP14B, XP15B (указаны на плате mboard)
 
 **Объект:** `wheel`
 
@@ -327,7 +327,7 @@ void loop() {
 
 ## Сервоприводы
 
-Моторчики, которые поворачиваются на заданный угол от 0 до 180 градусов.
+Поворачиваются на заданный угол от 0 до 180 градусов.
 
 **Подключение:** Разъемы SRV1, SRV2, SRV3, SRV4
 
@@ -349,10 +349,10 @@ void setup() {
 void loop() {
     bot.update();
 
-    if (bot.servo.getAngle(Servos::SRV1) == 0) {
-        bot.servo.setAngle(Servos::SRV1, 180);
+    if (bot.servo.getAngle(Servos::Name::SRV1) == 0) {
+        bot.servo.setAngle(Servos::Name::SRV1, 180);
     } else {
-        bot.servo.setAngle(Servos::SRV1, 0);
+        bot.servo.setAngle(Servos::Name::SRV1, 0);
     }
 }
 ```
@@ -361,16 +361,16 @@ void loop() {
 
 ## Светодиоды платы
 
-4 встроенных RGB светодиода на плате управления.
+4 встроенных RGB светодиода на нижней плате (mboard).
 
-**Подключение:** Встроенные светодиоды DA9, DA14, DA20, DA26
+**Имена:** DA9, DA14, DA20, DA26 (указаны рядом со светодиодом)
 
 **Объект:** `mboardLed`
 
 **Методы:**
 - `void color(Led::Name led, int red, int green, int blue)` - Установить RGB цвет (0-255 для каждого цвета)
-- `void color(Led::Name led, Color::Name color)` - Установить цвет из готовых
-- `void colorAll(Color::Name color)` - Установить цвет всех светодиодов
+- `void color(Led::Name led, Led::Color color)` - Установить цвет из готовых
+- `void colorAll(Led::Color color)` - Установить цвет всех светодиодов
 - `void off(Led::Name led)` - Выключить один светодиод
 - `void offAll()` - Выключить все светодиоды
 
@@ -480,8 +480,6 @@ void loop() {
 
 Экран для вывода текста и чисел (4 строки).
 
-**Подключение:** I2C порт
-
 **Объект:** `oled`
 
 **Методы:**
@@ -516,8 +514,6 @@ bot.oled.printStr4(temperature, 1);     // выведет: 23.5
 ## Сенсорные кнопки экрана M5Stack
 
 4 кнопки на сенсорном экране M5Stack. На них можно вывести текст.
-
-**Подключение:** Встроенные в экран M5Stack
 
 **Доступные объекты:** `sensorBTN1`, `sensorBTN2`, `sensorBTN3`, `sensorBTN4`
 
