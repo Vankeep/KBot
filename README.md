@@ -60,7 +60,9 @@
 
 # API
 
-### Инициализация
+## Инициализация
+
+Каждая программа для робота начинается с этого кода:
 
 ```cpp
 #include <KBot.h>
@@ -76,21 +78,65 @@ void loop() {
 }
 ```
 
-## Ультразвуковой датчик расстояния (Sonic)
+**Важно:** В функции `loop()` обязательно вызывайте `bot.update()` в начале!
+
+---
+
+## Ультразвуковой датчик расстояния
+
+Измеряет расстояние до объекта с помощью ультразвука (как у летучих мышей).
 
 **Подключение:** I2C порт
+
+**Объект:** `ultrasonic`
 
 **Методы:**
 - `long getDistanceMm()` - Получить расстояние до объекта в миллиметрах
 
+**Пример использования:** `sonar.ino`
+
+```cpp
+void loop() {
+    bot.update();
+    int mm = bot.ultrasonic.getDistanceMm();
+    bot.oled.printStr1("Dist = " + String(mm) + " mm");
+}
+```
+
+---
+
 ## Датчик расстояния ToF (Time-of-Flight)
+
+Более точный датчик расстояния, использует лазер.
 
 **Подключение:** I2C порт
 
-**Методы:**
-- `int getDistance()` - Получить расстояние до объекта в миллиметрах
+**Объект:** `tof`
 
-## Датчик угла (Angle Sensor)
+**Методы:**
+- `void begin(uint8_t address = 0x29)` - Инициализация датчика (адрес по умолчанию 0x29)
+- `long getDistanceMm()` - Получить расстояние до объекта в миллиметрах
+
+**Пример использования:** `tof.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    // begin() вызывать не обязательно, датчик работает по умолчанию
+}
+
+void loop() {
+    bot.update();
+    int mm = bot.tof.getDistanceMm();
+    bot.oled.printStr1("tof distance = " + String(mm) + " mm");
+}
+```
+
+---
+
+## Датчик угла
+
+Датчик поворота (потенциометр), который измеряет угол от 0 до 180 градусов.
 
 **Подключение:** Разъемы XP8, XP9, XP10, XP11
 
@@ -100,23 +146,146 @@ void loop() {
 - `void begin(Pins::Name pin)` - Инициализация датчика на указанном разъеме
 - `int getAngle()` - Получить угол поворота в градусах (0-180)
 
-## Кнопки и концевые выключатели (Switch)
+**Пример использования:** `angleSensor.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.angleSensor1.begin(Pins::Name::XP9);
+}
+
+void loop() {
+    bot.update();
+    int angle = bot.angleSensor1.getAngle();
+    bot.servo.setAngle(Servos::SRV1, angle);
+}
+```
+
+---
+
+## Кнопки и концевые выключатели
+
+Датчики нажатия. Кнопка нажимается пальцем, концевой выключатель срабатывает при столкновении.
 
 **Подключение:** Разъемы XP8, XP9, XP10, XP11, XP13
 
 **Доступные объекты:**
-- `button1`, `button2` - кнопки
+- `button1`, `button2` - обычные кнопки
 - `limitSwitch1`, `limitSwitch2` - концевые выключатели
 
 **Методы:**
-- `void begin(Pins::Name pin)` - Инициализация на указанном разъеме с подтяжкой
+- `void begin(Pins::Name pin, bool pullUp = true)` - Инициализация на указанном разъеме
 - `bool isPressed()` - Возвращает true один раз при нажатии
 - `bool isReleased()` - Возвращает true один раз при отпускании
 - `bool isHeld()` - Возвращает true пока кнопка удерживается
 
-## Моторы (Wheels)
+**Пример использования:** `button.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.button1.begin(Pins::Name::XP8);
+}
+
+void loop() {
+    bot.update();
+
+    if (bot.button1.isPressed()) {
+        bot.oled.printStr1("isPressed");
+    }
+
+    if (bot.button1.isHeld()) {
+        bot.oled.printStr2("isHeld");
+    }
+}
+```
+
+---
+
+## Датчик линии
+
+Датчик для обнаружения черной линии на белом фоне (или наоборот).
+
+**Подключение:** Разъемы XP8, XP10, XP11, XP13
+
+**Доступные объекты:** `lineSensor1`, `lineSensor2`, `lineSensor3`, `lineSensor4`
+
+**Методы:**
+- `void begin(Pins::Name pin)` - Инициализация датчика на указанном разъеме
+- `bool isOnLine()` - Возвращает true, если датчик видит линию
+- `bool isDetected()` - Возвращает true один раз при обнаружении линии
+- `bool isLost()` - Возвращает true один раз при потере линии
+
+**Пример использования:** `lineSensor.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.lineSensor1.begin(Pins::Name::XP8);
+    bot.lineSensor2.begin(Pins::Name::XP11);
+}
+
+void loop() {
+    bot.update();
+
+    bool line1 = bot.lineSensor1.isOnLine();
+    bool line2 = bot.lineSensor2.isOnLine();
+
+    bot.oled.printStr1(String(line1) + " | " + String(line2));
+}
+```
+
+---
+
+## Датчик цвета
+
+Датчик для распознавания цветов: красный, зеленый, синий, белый, черный.
+
+**Подключение:** I2C порт
+
+**Объект:** `colorSensor`
+
+**Методы:**
+- `void begin(uint8_t address = 0x29)` - Инициализация датчика (адрес по умолчанию 0x29)
+- `void calibrateWhite()` - Калибровка по белому листу (вызывать при включении!)
+- `void getRGB(int &r, int &g, int &b)` - Получить значения RGB цвета
+- `bool isRed(int r, int g, int b)` - Проверить, красный ли это цвет
+- `bool isGreen(int r, int g, int b)` - Проверить, зеленый ли это цвет
+- `bool isBlue(int r, int g, int b)` - Проверить, синий ли это цвет
+- `bool isWhite(int r, int g, int b)` - Проверить, белый ли это цвет
+- `bool isBlack(int r, int g, int b)` - Проверить, черный ли это цвет
+
+**Пример использования:** `colorSensor.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.colorSensor.calibrateWhite(); // Калибровка по белому!
+}
+
+void loop() {
+    bot.update();
+
+    int r, g, b;
+    bot.colorSensor.getRGB(r, g, b);
+
+    if (bot.colorSensor.isRed(r, g, b)) {
+        bot.oled.printStr1("RED");
+    } else if (bot.colorSensor.isGreen(r, g, b)) {
+        bot.oled.printStr1("GREEN");
+    }
+}
+```
+
+---
+
+## Моторы
+
+Управление колесами робота. Скорость от -200 (назад) до 200 (вперед).
 
 **Подключение:** Встроенные разъемы моторов XP14A, XP15A, XP14B, XP15B
+
+**Объект:** `wheel`
 
 **Методы:**
 - `void drive(int left, int right)` - Управление левыми и правыми моторами (-200...200)
@@ -124,80 +293,174 @@ void loop() {
 - `void stop(Wheel::Name motor)` - Остановить один мотор
 - `void stopAll()` - Остановить все моторы
 
-**Константы моторов:**
-- `Wheel::XP14A`
-- `Wheel::XP15A`
-- `Wheel::XP14B`
-- `Wheel::XP15B`
+**Пример использования:** `wheel.ino`
 
-## Сервоприводы (Servo)
+```cpp
+void loop() {
+    bot.update();
+
+    // Оба мотора вперед на скорости 50
+    bot.wheel.drive(50, 50);
+
+    // Или управление отдельными моторами
+    bot.wheel.drive(Wheel::Name::XP14A, 50);
+    bot.wheel.drive(Wheel::Name::XP15A, -50);
+}
+```
+
+---
+
+## Сервоприводы
+
+Моторчики, которые поворачиваются на заданный угол от 0 до 180 градусов.
 
 **Подключение:** Разъемы SRV1, SRV2, SRV3, SRV4
+
+**Объект:** `servo`
 
 **Методы:**
 - `void setAngle(Servos::Name servo, int angle)` - Установить угол сервопривода (0-180)
 - `int getAngle(Servos::Name servo)` - Получить текущий угол сервопривода
 - `void goHome()` - Вернуть все сервоприводы в начальное положение (90°)
 
-**Константы сервоприводов:**
-- `Servos::SRV1` - Разъем SRV1 (GPIO 2)
-- `Servos::SRV2` - Разъем SRV2 (GPIO 4)
-- `Servos::SRV3` - Разъем SRV3 (GPIO 19)
-- `Servos::SRV4` - Разъем SRV4 (GPIO 12)
+**Пример использования:** `servo.ino`
 
-## Светодиоды платы (MBoard LED)
+```cpp
+void setup() {
+    bot.begin();
+    bot.servo.setAngle(Servos::Name::SRV1, 0);
+}
+
+void loop() {
+    bot.update();
+
+    if (bot.servo.getAngle(Servos::SRV1) == 0) {
+        bot.servo.setAngle(Servos::SRV1, 180);
+    } else {
+        bot.servo.setAngle(Servos::SRV1, 0);
+    }
+}
+```
+
+---
+
+## Светодиоды платы
+
+4 встроенных RGB светодиода на плате управления.
 
 **Подключение:** Встроенные светодиоды DA9, DA14, DA20, DA26
 
+**Объект:** `mboardLed`
+
 **Методы:**
-- `void color(Led::Name led, int red, int green, int blue)` - Установить RGB цвет светодиода (0-255)
-- `void color(Led::Name led, Led::Color color)` - Установить цвет из предустановленных
-- `void colorAll(Led::Color color)` - Установить цвет всех светодиодов
+- `void color(Led::Name led, int red, int green, int blue)` - Установить RGB цвет (0-255 для каждого цвета)
+- `void color(Led::Name led, Color::Name color)` - Установить цвет из готовых
+- `void colorAll(Color::Name color)` - Установить цвет всех светодиодов
 - `void off(Led::Name led)` - Выключить один светодиод
 - `void offAll()` - Выключить все светодиоды
 
-**Константы светодиодов:**
-- `Led::DA9`, `Led::DA14`, `Led::DA20`, `Led::DA26`
+**Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Предустановленные цвета:**
-- `Led::RED`, 
-- `Led::GREEN`, 
-- `Led::BLUE`
-- `Led::YELLOW`, 
-- `Led::CYAN`, 
-- `Led::MAGENTA`
-- `Led::BLACK` (выключен)
+**Пример использования:** `mboardLed.ino`
+
+```cpp
+void loop() {
+    bot.update();
+
+    // Зажечь один светодиод красным
+    bot.mboardLed.color(Led::Name::DA9, Led::Color::RED);
+
+    // Или задать свой цвет (красный, зеленый, синий)
+    bot.mboardLed.color(Led::Name::DA14, 255, 0, 128);
+
+    // Зажечь все светодиоды
+    bot.mboardLed.colorAll(Led::Color::GREEN);
+}
+```
+
+---
+
+## RGB светодиодная лента
+
+Управление RGB светодиодной лентой (адресные светодиоды WS2812).
+
+**Подключение:** Разъемы XP8, XP9, XP10, XP11, XP12, XP13
+
+**Объект:** `rgbLed`
+
+**Методы:**
+- `void begin(Pins::Name pin, int numLeds = 3)` - Инициализация ленты (указать пин и количество светодиодов)
+- `void setColor(int pixel, int r, int g, int b)` - Установить цвет одного светодиода (0-255 для каждого цвета)
+- `void setColor(int pixel, Color::Name color)` - Установить готовый цвет
+- `void setColorAll(int r, int g, int b)` - Установить цвет всех светодиодов
+- `void setColorAll(Color::Name color)` - Установить готовый цвет для всех
+- `void setBrightness(int brightness)` - Установить яркость (0-255)
+- `void clear()` - Выключить все светодиоды
+- `int getNumLeds()` - Получить количество светодиодов
+
+**Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
+
+**Пример использования:** `rgbLed.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.rgbLed.begin(Pins::Name::XP11, 6); // 6 светодиодов на пине XP11
+}
+
+void loop() {
+    bot.update();
+
+    // Зажечь первый светодиод красным
+    bot.rgbLed.setColor(0, Led::Color::RED);
+
+    // Зажечь все светодиоды синим
+    bot.rgbLed.setColorAll(0, 0, 255);
+}
+```
+
+---
 
 ## OLED дисплей
 
+Экран для вывода текста и чисел (4 строки).
+
 **Подключение:** I2C порт
+
+**Объект:** `oled`
 
 **Методы:**
 - `void printStr1(...)` - Вывод данных в строку 1
 - `void printStr2(...)` - Вывод данных в строку 2
 - `void printStr3(...)` - Вывод данных в строку 3
 - `void printStr4(...)` - Вывод данных в строку 4
-- `void clear()` - Очистить дисплей
+- `void clear()` - Очистить весь дисплей
 
 **Что можно выводить:**
-Все функции `printStr1`, `printStr2`, `printStr3`, `printStr4` умеют выводить:
-- Текст: `oled.printStr1("Привет")`
-- Целые числа: `oled.printStr2(123)`
-- Большие числа: `oled.printStr3(987654L)`
-- Дробные числа: `oled.printStr4(3.14)` или `oled.printStr4(3.14159, 3)` (3 цифры после запятой)
+
+Все функции `printStr1-4` умеют выводить:
+- Текст: `bot.oled.printStr1("Привет")`
+- Целые числа: `bot.oled.printStr2(123)`
+- Большие числа: `bot.oled.printStr3(987654L)`
+- Дробные числа: `bot.oled.printStr4(3.14)` или с указанием точности `bot.oled.printStr4(3.14159, 3)`
 
 **Пример:**
+
 ```cpp
 int distance = 42;
 float temperature = 23.5;
 
-oled.printStr1("Датчик:");
-oled.printStr2(distance);           // выведет: 42
-oled.printStr3(temperature);        // выведет: 23.50
-oled.printStr4(temperature, 1);     // выведет: 23.5
+bot.oled.printStr1("Датчик:");
+bot.oled.printStr2(distance);           // выведет: 42
+bot.oled.printStr3(temperature);        // выведет: 23.50
+bot.oled.printStr4(temperature, 1);     // выведет: 23.5
 ```
 
-## Сенсорные кнопки экрана (Sensor Button)
+---
+
+## Сенсорные кнопки экрана M5Stack
+
+4 кнопки на сенсорном экране M5Stack. На них можно вывести текст.
 
 **Подключение:** Встроенные в экран M5Stack
 
@@ -205,34 +468,88 @@ oled.printStr4(temperature, 1);     // выведет: 23.5
 
 **Методы:**
 - `void setText(const char* text)` - Установить текст на кнопке
-- `bool isClick()` - Проверить нажатие кнопки
+- `bool isClick()` - Проверить, нажата ли кнопка (возвращает true один раз при нажатии)
 
-## Таймеры (Timer)
+**Пример использования:** `sensorButton.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.sensorBTN1.setText("START");
+    bot.sensorBTN2.setText("STOP");
+}
+
+void loop() {
+    bot.update();
+
+    if (bot.sensorBTN1.isClick()) {
+        bot.wheel.drive(50, 50);
+    }
+
+    if (bot.sensorBTN2.isClick()) {
+        bot.wheel.stopAll();
+    }
+}
+```
+
+---
+
+## Таймеры
+
+Таймеры для отсчета времени. Можно запустить на одно срабатывание или повторяющийся.
 
 **Доступные объекты:** `timer1`, `timer2`, `timer3`, `timer4`
 
 **Методы:**
-- `void startOnce(uint32_t ms)` - Запустить однократный таймер
-- `void startEvery(uint32_t ms)` - Запустить периодический таймер
+- `void startOnce(uint32_t ms)` - Запустить таймер на один раз (время в миллисекундах)
+- `void startEvery(uint32_t ms)` - Запустить повторяющийся таймер (время в миллисекундах)
 - `void stop()` - Остановить таймер
 - `void reset()` - Сбросить таймер
-- `bool isReady()` - Проверить готовность таймера (сработал)
-- `bool isActive()` - Проверить активен ли таймер
-- `bool isDone()` - Проверить завершен ли таймер
+- `bool isReady()` - Проверить, сработал ли таймер (true один раз при срабатывании)
+- `bool isActive()` - Проверить, работает ли таймер
+- `bool isDone()` - Проверить, завершился ли таймер
+
+**Пример использования:** `timer.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.timer1.startOnce(3000);  // Запустить на 3 секунды
+}
+
+void loop() {
+    bot.update();
+
+    if (bot.timer1.isDone()) {
+        bot.timer1.stop();
+        bot.timer2.startEvery(500);  // Повторять каждые 0.5 секунды
+    }
+
+    if (bot.timer2.isReady()) {
+        // Этот код выполнится каждые 0.5 секунды
+        bot.mboardLed.colorAll(Color::RED);
+    }
+}
+```
+
+---
 
 ## Таблица совместимости датчиков и разъемов
 
-| Датчик/Устройство | Разъемы |
-|------------------|---------|
-| Ultrasonic Sensor | I2C |
-| ToF Sensor | I2C |
-| Angle Sensor | XP8, XP9, XP10, XP11, XP12, XP13 |
-| Button/Limit Switch | XP8, XP9, XP10, XP11, XP12, XP13 |
-| OLED Display | I2C |
-| Servo | SRV1, SRV2, SRV3, SRV4 |
-| Motors | XP14A, XP15A, XP14B, XP15B (встроенные) |
-| LED | DA9, DA14, DA20, DA26 (встроенные) |
-| Sensor Buttons | Встроенные в экран |
+| Датчик/Устройство | Разъемы подключения |
+|------------------|---------------------|
+| Ультразвуковой датчик | I2C |
+| ToF датчик расстояния | I2C |
+| Датчик цвета | I2C |
+| OLED дисплей | I2C |
+| Датчик угла | XP8, XP9, XP10, XP11 |
+| Кнопка / Концевой выключатель | XP8, XP9, XP10, XP11, XP13 |
+| Датчик линии | XP8, XP10, XP11, XP13 |
+| RGB светодиодная лента | XP8, XP9, XP10, XP11, XP12, XP13 |
+| Сервопривод | SRV1, SRV2, SRV3, SRV4 |
+| Моторы | XP14A, XP15A, XP14B, XP15B (встроенные) |
+| Светодиоды платы | DA9, DA14, DA20, DA26 (встроенные) |
+| Сенсорные кнопки | Встроенные в экран M5Stack |
 
 ## Лицензия
 
