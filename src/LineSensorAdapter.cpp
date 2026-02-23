@@ -8,13 +8,13 @@ void LineSensorAdapter::begin(Pins::Name name) {
 
         _emaScaled   = analogRead(_pin) * EMA_DEN;
 
-        _isOnLine    = false;
-        _wasOnLine   = false;
-        _detected    = false;
-        _lost        = false;
-        _candidate   = false;
+        _isOnLine = false;
+        _wasOnLine = false;
+        _detected = false;
+        _lost = false;
+        _candidate = false;
         _stableCount = 0;
-        _isBegin     = true;
+        _isBegin = true;
     }
 }
 
@@ -66,18 +66,21 @@ void LineSensorAdapter::tick() {
 }
 
 bool LineSensorAdapter::isOnLine() {
+    if(!_isBeginAdapter()) return false;
     return _isOnLine;
 }
 
 bool LineSensorAdapter::isDetected() {
+    if(!_isBeginAdapter()) return false;
     return _detected;
 }
 
 bool LineSensorAdapter::isLost() {
+    if(!_isBeginAdapter()) return false;
     return _lost;
 }
 
-int LineSensorAdapter::readMedian() {
+int LineSensorAdapter::_readMedian() {
     int buf[ADC_SAMPLES];
 
     for (uint8_t i = 0; i < ADC_SAMPLES; i++) {
@@ -95,4 +98,11 @@ int LineSensorAdapter::readMedian() {
     }
 
     return buf[ADC_SAMPLES / 2];
+}
+
+bool LineSensorAdapter::_isBeginAdapter() {
+    if (_isBegin == false) {
+        Serial.println("ERR: bot.lineSensor LineSensor не инициализирован");
+    }
+    return _isBegin;
 }

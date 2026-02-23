@@ -35,17 +35,18 @@ private:
     //Мультисэмплинг
     static constexpr uint8_t ADC_SAMPLES = 5;
 
-    uint8_t  _pin          = 0;
-    bool     _isBegin      = false;
-    int32_t  _emaScaled    = 0;
+    uint8_t _pin = 0;
+    bool _isBegin = false;
+    int32_t _emaScaled = 0;
 
-    bool     _isOnLine     = false;
-    bool     _wasOnLine    = false;
-    bool     _detected     = false;
-    bool     _lost         = false;
+    bool _isOnLine = false;
+    bool _wasOnLine = false;
+    bool _detected = false;
+    bool _lost = false;
 
-    bool     _candidate    = false;   // кандидат на новое состояние
-    uint8_t  _stableCount  = 0;       // счётчик стабильных тиков
+    bool _candidate = false;    // кандидат на новое состояние
+    uint8_t _stableCount = 0;   // счётчик стабильных тиков
 
-    int      readMedian();
+    int _readMedian();
+    bool _isBeginAdapter();
 };

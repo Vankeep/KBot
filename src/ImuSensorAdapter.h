@@ -32,7 +32,6 @@ public:
 private:
     uint8_t _address = 0x68;
     bool _isBegin = false;
-    bool _errorPrinted = false;
     bool _isBeginAdapter();
 
     int _pitch = 0;

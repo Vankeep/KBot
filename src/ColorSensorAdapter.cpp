@@ -33,7 +33,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
     _address = address;
     _wr = _wg = _wb = 1;
     _calibrated = false;
-    _isConnected = false;
+    _isBegin = false;
 
     // Check I2C ACK
     Wire.beginTransmission(_address);
@@ -47,7 +47,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
     uint8_t id = Wire.read();
     if (id != 0x44 && id != 0x4D) return;
 
-    _isConnected = true;
+    _isBegin = true;
 
     // Power ON
     _writeByteAt(TCS34725_ENABLE, TCS34725_PON);
@@ -64,7 +64,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
 }
 
 void ColorSensorAdapter::calibrateWhite() {
-    if (!_isConnected) return;
+    if(!_isBeginAdapter()) return;
 
     uint32_t sumR = 0, sumG = 0, sumB = 0;
 
@@ -87,7 +87,8 @@ void ColorSensorAdapter::calibrateWhite() {
 }
 
 void ColorSensorAdapter::getRGB(int &r, int &g, int &b) {
-    if (!_isConnected || !_calibrated) {
+    if(!_isBeginAdapter()) return;
+    if (!_calibrated) {
         r = g = b = 0;
         return;
     }
@@ -147,4 +148,11 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
     uint8_t lo = Wire.read();
     uint8_t hi = Wire.read();
     return ((uint16_t)hi << 8) | lo;
+}
+
+bool ColorSensorAdapter::_isBeginAdapter() {
+    if (_isBegin == false) {
+        Serial.println("ERR: bot.colorSensor Color Sensor не инициализирован");
+    }
+    return _isBegin;
 }

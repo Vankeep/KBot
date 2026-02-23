@@ -28,8 +28,8 @@ public:
 
 private:
     uint8_t _address;
-    bool _isConnected;
     bool _calibrated;
+    bool _isBegin = false;
 
     // White reference
     uint16_t _wr, _wg, _wb;
@@ -40,4 +40,6 @@ private:
     static constexpr uint8_t COMMAND_BIT = 0x80;
     static constexpr uint8_t NUM_SAMPLES = 10;
     static constexpr int COLOR_DIFF_THRESHOLD = 5;
+
+    bool _isBeginAdapter();
 };

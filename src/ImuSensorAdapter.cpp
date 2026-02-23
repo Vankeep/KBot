@@ -16,9 +16,8 @@
 #include <math.h>
 
 bool ImuSensorAdapter::_isBeginAdapter() {
-    if (_isBegin == false && !_errorPrinted) {
+    if (_isBegin == false) {
         Serial.println("ERR: bot.imu. IMU датчик не обнаружен");
-        _errorPrinted = true;
     }
     return _isBegin;
 }
