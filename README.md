@@ -3,62 +3,33 @@
 Библиотека для образовательного робототехнического конструктора.
 ![Preferences](img/img0.png)
 
+## Быстрый старт
+
+Перед началом работы необходимо установить и настроить Arduino IDE. Подробная инструкция: [**Установка и настройка Arduino IDE**](ARDUINO_SETUP.md)
+
 ## Содержание
 
-- [Установка и настройка Arduino IDE](#установка-и-настройка-arduino-ide)
-  - [Установка](#установка)
-  - [Добавление плат ESP32 и M5Stack](#добавление-плат-esp32-и-m5stack)
 - [API](#api)
   - [Инициализация](#инициализация)
   - [Ультразвуковой датчик расстояния (Sonic)](#ультразвуковой-датчик-расстояния-sonic)
   - [Датчик расстояния ToF](#датчик-расстояния-tof-time-of-flight)
   - [Датчик угла](#датчик-угла-angle-sensor)
   - [Кнопки и концевые выключатели](#кнопки-и-концевые-выключатели-switch)
+  - [Датчик линии](#датчик-линии-line-sensor)
+  - [Датчик цвета](#датчик-цвета-color-sensor)
+  - [Датчик IMU](#датчик-imu-акселерометр-и-гироскоп)
   - [Моторы](#моторы-wheels)
   - [Сервоприводы](#сервоприводы-servo)
   - [Светодиоды платы](#светодиоды-платы-mboard-led)
+  - [RGB светодиодная лента](#rgb-светодиодная-лента-rgb-led)
+  - [Зуммер](#зуммер-buzzer)
   - [OLED дисплей](#oled-дисплей)
   - [Сенсорные кнопки экрана](#сенсорные-кнопки-экрана-sensor-button)
   - [Таймеры](#таймеры-timer)
   - [Таблица совместимости датчиков и разъемов](#таблица-совместимости-датчиков-и-разъемов)
 - [Лицензия](#лицензия)
 
-## Установка и настройка Arduino IDE
-
-### Установка
-
-1. Скачать Arduino IDE 2.x с официального сайта: https://www.arduino.cc/en/software
-2. Установить согласно инструкциям для вашей ОС
-
-### Добавление плат ESP32 и M5Stack
-
-1. Открыть Arduino IDE
-2. Перейти в `File` → `Preferences
-    
-    ![Preferences](img/img1.png)
-3. В поле `Additional Boards Manager URLs` вставить ссылку:
-   https://static-cdn.m5stack.com/resource/arduino/package_m5stack_index.json  
-
-    ![Preferences](img/img2.png)
-4. Открыть `Tools` → `Board` → `Boards Manager`
-5. Найти и установить:
-   - `M5Stack` версия `2.1.4`
-
-   ![Preferences](img/img3.png)
-    - `esp32` версия `2.0.17`
-
-   ![Preferences](img/img4.png)
-6. TODO архив в библитеками
-
-7. Установка библотеки KBot.
- 
-    Скопировать папку `KBot` в директорию библиотек Arduino:
-   - Windows: `Documents/Arduino/libraries/`
-   - macOS: `Documents/Arduino/libraries/`
-   - Linux: `~/Arduino/libraries/`
-2. Перезапустить Arduino IDE
-
-# API
+## API
 
 ## Инициализация
 
@@ -279,6 +250,51 @@ void loop() {
 
 ---
 
+## Датчик IMU (акселерометр и гироскоп)
+
+Датчик для измерения положения робота в пространстве: углы наклона, крена, ускорение и угловую скорость.
+
+**Подключение:** I2C порт
+
+**Объект:** `imu`
+
+**Методы:**
+- `void begin(uint8_t address = 0x68)` - Инициализация датчика (адрес по умолчанию 0x68)
+- `int getPitch()` - Получить угол наклона (pitch) в градусах
+- `int getRoll()` - Получить угол крена (roll) в градусах
+- `int getAccelX()` - Получить ускорение по оси X
+- `int getAccelY()` - Получить ускорение по оси Y
+- `int getAccelZ()` - Получить ускорение по оси Z
+- `int getGyroX()` - Получить угловую скорость по оси X
+- `int getGyroY()` - Получить угловую скорость по оси Y
+- `int getGyroZ()` - Получить угловую скорость по оси Z
+
+**Пример использования:** `imu.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    // begin() вызывать не обязательно, датчик работает по умолчанию
+    bot.timer1.startEvery(100);
+}
+
+void loop() {
+    bot.update();
+
+    if (bot.timer1.isReady()) {
+        int pitch = bot.imu.getPitch();
+        int roll  = bot.imu.getRoll();
+        int ax    = bot.imu.getAccelX();
+
+        bot.oled.printStr1("Naklon: " + String(pitch));
+        bot.oled.printStr2("Kren: " + String(roll));
+        bot.oled.printStr3("AccelX: " + String(ax));
+    }
+}
+```
+
+---
+
 ## Моторы
 
 Управление колесами робота. Скорость от -200 (назад) до 200 (вперед).
@@ -421,6 +437,46 @@ void loop() {
 
 ---
 
+## Зуммер (Buzzer)
+
+Звуковой динамик для воспроизведения тонов и мелодий.
+
+**Подключение:** Разъемы XP8, XP9, XP10, XP11, XP12, XP13
+
+**Объект:** `buzzer`
+
+**Методы:**
+- `void begin(Pins::Name pin)` - Инициализация зуммера на указанном разъеме
+- `void tone(int frequency, unsigned long duration = 0)` - Воспроизвести тон с указанной частотой (в Гц) и длительностью (в мс). Если duration = 0, тон будет звучать постоянно
+- `void noTone()` - Остановить воспроизведение звука
+
+**Пример использования:** `buzzer.ino`
+
+```cpp
+void setup() {
+    bot.begin();
+    bot.buzzer.begin(Pins::Name::XP11);
+
+    // Три ноты вверх
+    bot.buzzer.tone(1000, 100);
+    delay(150);
+    bot.buzzer.tone(1500, 100);
+    delay(150);
+    bot.buzzer.tone(2000, 300);
+}
+
+void loop() {
+    bot.update();
+
+    // Воспроизвести ноту Ми (659 Гц) на 200 мс
+    if (bot.button1.isPressed()) {
+        bot.buzzer.tone(659, 200);
+    }
+}
+```
+
+---
+
 ## OLED дисплей
 
 Экран для вывода текста и чисел (4 строки).
@@ -541,11 +597,13 @@ void loop() {
 | Ультразвуковой датчик | I2C |
 | ToF датчик расстояния | I2C |
 | Датчик цвета | I2C |
+| Датчик IMU | I2C |
 | OLED дисплей | I2C |
 | Датчик угла | XP8, XP9, XP10, XP11 |
 | Кнопка / Концевой выключатель | XP8, XP9, XP10, XP11, XP13 |
 | Датчик линии | XP8, XP10, XP11, XP13 |
 | RGB светодиодная лента | XP8, XP9, XP10, XP11, XP12, XP13 |
+| Зуммер | XP8, XP9, XP10, XP11, XP12, XP13 |
 | Сервопривод | SRV1, SRV2, SRV3, SRV4 |
 | Моторы | XP14A, XP15A, XP14B, XP15B (встроенные) |
 | Светодиоды платы | DA9, DA14, DA20, DA26 (встроенные) |
