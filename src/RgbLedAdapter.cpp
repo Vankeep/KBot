@@ -33,7 +33,7 @@ void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
 }
 
 void RgbLedAdapter::tick() {
-    if(_isBeginAdapter() == false) return;
+    if(_isBegin == false) return;
     if(_dirty == false) return;
     _pixels->show();
     _dirty = false;

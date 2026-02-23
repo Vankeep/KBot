@@ -40,6 +40,8 @@ void KBot::begin() {
     tof.begin();
 
     colorSensor.begin();
+
+    imu.begin();
     
     State::init();
 }
@@ -64,6 +66,8 @@ void KBot::update() {
     rgbLed.tick();
 
     buzzer.tick();
+
+    imu.tick();
 
     _initConnection();
 

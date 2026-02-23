@@ -30,6 +30,7 @@
 #include "ColorSensorAdapter.h"
 #include "RgbLedAdapter.h"
 #include "BuzzerAdapter.h"
+#include "ImuSensorAdapter.h"
 
 class KBot {
 public:
@@ -62,6 +63,7 @@ public:
     ColorSensorAdapter colorSensor;
     RgbLedAdapter rgbLed;
     BuzzerAdapter buzzer;
+    ImuSensorAdapter imu;
 
     void begin();
     void update();

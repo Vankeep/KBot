@@ -26,7 +26,7 @@ void BuzzerAdapter::begin(Pins::Name name) {
 }
 
 void BuzzerAdapter::tick() {
-    if(_isBeginAdapter() == false) return;
+    if(_isBegin == false) return;
     if(_playing == false) return;
 
     if(_toneEndTime > 0 && millis() >= _toneEndTime) {
