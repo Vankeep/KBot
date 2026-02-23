@@ -22,7 +22,7 @@ void setup() {
 
 void loop() {
   bot.update();
-
+  
   if (bot.timer1.isReady()) {
     for (int i = 0; i < bot.rgbLed.getNumLeds(); i++) {
       int colorIndex = (i + offset) % 6;

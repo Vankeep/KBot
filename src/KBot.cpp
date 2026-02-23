@@ -63,6 +63,8 @@ void KBot::update() {
 
     rgbLed.tick();
 
+    buzzer.tick();
+
     _initConnection();
 
     M5.update();

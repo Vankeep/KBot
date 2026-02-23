@@ -29,6 +29,7 @@
 #include "LineSensorAdapter.h"
 #include "ColorSensorAdapter.h"
 #include "RgbLedAdapter.h"
+#include "BuzzerAdapter.h"
 
 class KBot {
 public:
@@ -60,6 +61,7 @@ public:
     LineSensorAdapter lineSensor4;
     ColorSensorAdapter colorSensor;
     RgbLedAdapter rgbLed;
+    BuzzerAdapter buzzer;
 
     void begin();
     void update();
