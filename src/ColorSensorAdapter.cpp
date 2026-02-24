@@ -154,7 +154,7 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
 
 bool ColorSensorAdapter::_isBeginAdapter() {
     if (_isBegin == false) {
-        LOG_ERR("Color Sensor не подключен");
+        LOG_ERR("Color Sensor не обнаружен на шине I2C");
     }
     return _isBegin;
 }

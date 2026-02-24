@@ -17,7 +17,7 @@
 
 class ImuSensorAdapter {
 public:
-    void begin(uint8_t address = 0x68);
+    bool begin(uint8_t address = 0x68);
     void tick();
 
     int getPitch();
@@ -32,7 +32,6 @@ public:
 private:
     uint8_t _address = 0x68;
     bool _isBegin = false;
-    bool _isBeginAdapter();
 
     int _pitch = 0;
     int _roll  = 0;
@@ -61,4 +60,5 @@ private:
     void _writeReg(uint8_t reg, uint8_t data);
     uint8_t _readReg(uint8_t reg);
     void _readBlock(uint8_t reg, uint8_t count, uint8_t* buf);
+    bool _isBeginAdapter();
 };

@@ -42,11 +42,16 @@ void KBot::begin() {
     if(colorSensor.begin()){
         LOG_INFO("ColorSensor подключен и проинициализирован");
     } else {
-        LOG_INFO("ColorSensor не найден");
+        LOG_INFO("ColorSensor не обнаружен на шине I2C");
     }
-    
+        
+    if(imu.begin()){
+        LOG_INFO("IMU Sensor подключен и проинициализирован");
+    } else {
+        LOG_INFO("IMU Sensor не обнаружен на шине I2C");
+    }
 
-    imu.begin();
+    
     
     State::init();
 }

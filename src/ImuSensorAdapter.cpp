@@ -15,24 +15,14 @@
 #include <Wire.h>
 #include <math.h>
 
-bool ImuSensorAdapter::_isBeginAdapter() {
-    if (_isBegin == false) {
-        Serial.println("ERR: bot.imu. IMU датчик не обнаружен");
-    }
-    return _isBegin;
-}
-
-void ImuSensorAdapter::begin(uint8_t address) {
+bool ImuSensorAdapter::begin(uint8_t address) {
     _address = address;
 
     uint8_t whoAmI = _readReg(REG_WHO_AM_I);
-    Serial.print("IMU WHO_AM_I: 0x");
-    Serial.println(whoAmI, HEX);
 
     if (whoAmI != 0x19) {
         _isBegin = false;
-        Serial.println("WARN: bot.imu. MPU6886 не обнаружен на шине I2C");
-        return;
+        return _isBegin;
     }
 
     // Сброс датчика
@@ -65,7 +55,7 @@ void ImuSensorAdapter::begin(uint8_t address) {
     delay(50);
 
     _isBegin = true;
-    Serial.println("OK: bot.imu. MPU6886 инициализирован");
+    return _isBegin;
 }
 
 void ImuSensorAdapter::tick() {
@@ -139,4 +129,11 @@ void ImuSensorAdapter::_readBlock(uint8_t reg, uint8_t count, uint8_t* buf) {
     for (uint8_t i = 0; i < count && Wire.available(); i++) {
         buf[i] = Wire.read();
     }
+}
+
+bool ImuSensorAdapter::_isBeginAdapter(){
+    if (_isBegin == false) {
+        LOG_ERR("IMU Sensor не обнаружен на шине I2C");
+    }
+    return _isBegin;
 }
