@@ -44,7 +44,7 @@ void BuzzerAdapter::tick() {
 
 void BuzzerAdapter::tone(int frequency, unsigned long duration) {
     if(_isBeginAdapter() == false) return;
-    if(frequency < 20 && frequency > 20000){
+    if(frequency < 20 || frequency > 20000){
         LOG_ERR_F("%s.tone() Аргумент frequency не может быть менее 20 или более 20000", _objName);
         return;
     }

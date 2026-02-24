@@ -95,10 +95,6 @@ public:
     Serial.print(State::getServoAngle(Servos::Name::SRV3));
     Serial.print(" | SRV4=");
     Serial.print(State::getServoAngle(Servos::Name::SRV4));
-    Serial.print(" | SRV5=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV5));  
-    Serial.print(" | SRV6=");
-    Serial.println(State::getServoAngle(Servos::Name::SRV6)); 
     Serial.println("Светодиоды:");
     for(uint8_t i = 0; i < 4; i++){
       Serial.print("  ledColor ");

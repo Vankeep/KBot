@@ -113,10 +113,9 @@ int RgbLedAdapter::getNumLeds() const {
 }
 
 bool RgbLedAdapter::_isValideRgb(int r, int g, int b) const {
-    if(r >= 0 || g >= 0 || b >= 0 || r <= 255 || g <= 255 || b <= 255){
-        return true;
-    } else {
+    if(r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255){
         LOG_ERR_F("%s Цвет не может быть менее 0 или более 255", _objName);
         return false;
     }
+    return true;
 }

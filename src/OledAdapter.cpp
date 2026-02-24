@@ -20,14 +20,8 @@
 #define LINE_PAD      3
 
 void OledAdapter::begin() {
-    // тень под контейнером
-    M5.Lcd.fillRoundRect(2, SERIAL_Y + 2, 318, SERIAL_H, 6, 0x1082);
-    // основной контейнер
-    M5.Lcd.fillRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x18E3);
-    // тонкая рамка
-    M5.Lcd.drawRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x3186);
-
-    LOG_INFO_F("&s oled проинициализирован", _objName);
+    _initScreen();
+    LOG_INFO_F("%s проинициализирован", _objName);
 }
 
 void OledAdapter::printStr1(const String& text) { _drawLine(1, text.c_str()); }
@@ -58,7 +52,7 @@ void OledAdapter::printStr4(long value) { _drawLine(4, String(value).c_str()); }
 void OledAdapter::printStr4(float value, uint8_t decimals) { _drawLine(4, String(value, (unsigned int)decimals).c_str()); }
 void OledAdapter::printStr4(double value, uint8_t decimals) { _drawLine(4, String(value, (unsigned int)decimals).c_str()); }
 
-void OledAdapter::clear() { init(); }
+void OledAdapter::clear() { _initScreen(); }
 
 void OledAdapter::_drawLine(uint8_t line, const char* text) {
     int16_t y = SERIAL_Y + 4 + (line - 1) * (LINE_H + LINE_PAD);
@@ -71,4 +65,13 @@ void OledAdapter::_drawLine(uint8_t line, const char* text) {
     M5.Lcd.setTextSize(2);
     M5.Lcd.setTextDatum(ML_DATUM);
     M5.Lcd.drawString(text, 22, y + LINE_H / 2);
+}
+
+void OledAdapter::_initScreen(){
+    // тень под контейнером
+    M5.Lcd.fillRoundRect(2, SERIAL_Y + 2, 318, SERIAL_H, 6, 0x1082);
+    // основной контейнер
+    M5.Lcd.fillRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x18E3);
+    // тонкая рамка
+    M5.Lcd.drawRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x3186);
 }

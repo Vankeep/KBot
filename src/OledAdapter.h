@@ -51,4 +51,5 @@ public:
 
 private:
     void _drawLine(uint8_t line, const char* text);
+    void _initScreen();
 };
