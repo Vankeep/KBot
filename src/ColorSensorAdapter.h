@@ -41,5 +41,5 @@ private:
     static constexpr uint8_t NUM_SAMPLES = 10;
     static constexpr int COLOR_DIFF_THRESHOLD = 5;
 
-    bool _isBeginAdapter();
+    bool _isBeginAdapter() const;
 };

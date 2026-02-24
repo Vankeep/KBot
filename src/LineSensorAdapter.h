@@ -48,5 +48,5 @@ private:
     uint8_t _stableCount = 0;   // счётчик стабильных тиков
 
     int _readMedian();
-    bool _isBeginAdapter();
+    bool _isBeginAdapter() const;
 };

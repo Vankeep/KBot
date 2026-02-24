@@ -63,7 +63,7 @@ int AngleSensorAdapter::getAngle() {
     return _lastAngle;
 }
 
-bool AngleSensorAdapter::_isBeginAdapter(){
+bool AngleSensorAdapter::_isBeginAdapter() const {
     if(_isBegin == false) {
         LOG_ERR("Angle Sensor не было вызова begin. Класс не проинициализирован");
         return false;

@@ -60,5 +60,5 @@ private:
     void _writeReg(uint8_t reg, uint8_t data);
     uint8_t _readReg(uint8_t reg);
     void _readBlock(uint8_t reg, uint8_t count, uint8_t* buf);
-    bool _isBeginAdapter();
+    bool _isBeginAdapter() const;
 };

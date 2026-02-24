@@ -108,7 +108,7 @@ int LineSensorAdapter::_readMedian() {
     return buf[ADC_SAMPLES / 2];
 }
 
-bool LineSensorAdapter::_isBeginAdapter() {
+bool LineSensorAdapter::_isBeginAdapter() const{
     if(_isBegin == false) {
         LOG_ERR("Line Sensor не было вызова begin. Класс не проинициализирован");
     }

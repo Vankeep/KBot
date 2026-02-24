@@ -131,7 +131,7 @@ void ImuSensorAdapter::_readBlock(uint8_t reg, uint8_t count, uint8_t* buf) {
     }
 }
 
-bool ImuSensorAdapter::_isBeginAdapter(){
+bool ImuSensorAdapter::_isBeginAdapter() const {
     if (_isBegin == false) {
         LOG_ERR("IMU Sensor не обнаружен на шине I2C");
     }

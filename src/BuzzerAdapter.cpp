@@ -67,7 +67,7 @@ void BuzzerAdapter::noTone() {
     _toneEndTime = 0;
 }
 
-bool BuzzerAdapter::_isValidFrequency(int frequency) {
+bool BuzzerAdapter::_isValidFrequency(int frequency) const {
     if(frequency >= 20 && frequency <= 20000) {
         return true;
     } else {
@@ -76,7 +76,7 @@ bool BuzzerAdapter::_isValidFrequency(int frequency) {
     }
 }
 
-bool BuzzerAdapter::_isBeginAdapter() {
+bool BuzzerAdapter::_isBeginAdapter() const {
     if(_isBegin == false) {
         LOG_ERR("Buzzer не было вызова begin. Класс не проинициализирован");
     }

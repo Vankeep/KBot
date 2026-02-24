@@ -152,7 +152,7 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
     return ((uint16_t)hi << 8) | lo;
 }
 
-bool ColorSensorAdapter::_isBeginAdapter() {
+bool ColorSensorAdapter::_isBeginAdapter() const {
     if (_isBegin == false) {
         LOG_ERR("Color Sensor не обнаружен на шине I2C");
     }

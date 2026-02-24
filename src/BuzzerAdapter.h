@@ -30,6 +30,6 @@ private:
     bool _playing = false;
     unsigned long _toneEndTime = 0;
 
-    bool _isValidFrequency(int frequency);
-    bool _isBeginAdapter();
+    bool _isValidFrequency(int frequency) const;
+    bool _isBeginAdapter() const;
 };
