@@ -15,6 +15,11 @@
 #include <M5Unified.h>
 
 void BuzzerAdapter::begin(Pins::Name name) {
+    if(_isBegin == true) {
+        Serial.println("ERR: Buzzer уже проинициализирован. Повторная инициализация игнорируется");
+        return;
+    }
+
     _pin = Pins::rigthPin(name);
     _ledChannel = 0;
 
@@ -23,6 +28,7 @@ void BuzzerAdapter::begin(Pins::Name name) {
     ledcWrite(_ledChannel, 0);
 
     _isBegin = true;
+    Serial.println("[INFO] - Buzzer проинициализирован");
 }
 
 void BuzzerAdapter::tick() {
@@ -72,7 +78,7 @@ bool BuzzerAdapter::_isValidFrequency(int frequency) {
 
 bool BuzzerAdapter::_isBeginAdapter() {
     if(_isBegin == false) {
-        Serial.println("ERR: bot.buzzer. Не было вызова begin. Класс не инициализирован");
+        Serial.println("ERR: Buzzer не было вызова begin. Класс не проинициализирован");
     }
     return _isBegin;
 }
