@@ -237,7 +237,7 @@ int getGyroZ();
 
 Управление колесами робота. Скорость от -200 (назад) до 200 (вперед).
 
-**Имена:** XP14A, XP15A, XP14B, XP15B (указаны на плате mboard)
+**Имена:** XP14A, XP15A, XP14B, XP15B (указаны на плате kbotBoard)
 
 **Объект:** `wheel`
 
@@ -283,13 +283,13 @@ void goHome();
 
 ---
 
-## Светодиоды платы
+## Светодиоды платы kbotBoard
 
-4 встроенных RGB светодиода на нижней плате (mboard).
+4 встроенных RGB светодиода на нижней плате (kbotBoard).
 
 **Имена:** DA9, DA14, DA20, DA26 (указаны рядом со светодиодом)
 
-**Объект:** `mboardLed`
+**Объект:** `kbotBoardLed`
 
 **Методы:**
 ```cpp
@@ -307,7 +307,7 @@ void offAll();
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Пример использования:** `mboardLed.ino`
+**Пример использования:** `kbotBoardLed.ino`
 
 [↑ К содержанию](#содержание)
 

@@ -10,5 +10,5 @@ void setup(){
 
 void loop(){
     bot.update();
-    bot.mboardLed.color(Led::Name::DA9, Led::Color::RED);
+    bot.kbotBoardLed.color(Led::Name::DA9, Led::Color::RED);
 }

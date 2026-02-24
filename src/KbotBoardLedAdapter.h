@@ -14,9 +14,9 @@
 #pragma once
 #include "BaseAdapter.h"
 
-class MboardLedAdapter : public BaseAdapter{
+class KbotBoardLedAdapter : public BaseAdapter{
 public:
-    MboardLedAdapter(const char* objName) : BaseAdapter(objName) {}
+    KbotBoardLedAdapter(const char* objName) : BaseAdapter(objName) {}
     void color(Led::Name name, int red, int green, int blue);
     void color(Led::Name name, Led::Color color);
     void colorAll(Led::Color color);

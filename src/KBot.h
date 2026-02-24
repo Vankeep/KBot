@@ -21,7 +21,7 @@
 #include "ServoAdapter.h"
 #include "SensorButtonAdapter.h"
 #include "OledAdapter.h"
-#include "MboardLedAdapter.h"
+#include "KbotBoardLedAdapter.h"
 #include "Timer.h"
 #include "AngleSensorAdapter.h"
 #include "SwitchAdapter.h"
@@ -43,7 +43,7 @@ public:
     SensorButtonAdapter sensorBTN3;
     SensorButtonAdapter sensorBTN4;
     OledAdapter oled;
-    MboardLedAdapter mboardLed;
+    KbotBoardLedAdapter kbotBoardLed;
     Timer timer1;
     Timer timer2;
     Timer timer3;

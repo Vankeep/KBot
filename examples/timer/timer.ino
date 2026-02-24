@@ -7,7 +7,7 @@ bool isOn;
 void setup(){
     bot.begin();
     bot.timer1.startOnce(3000);
-    bot.mboardLed.colorAll(Led::Color::GREEN);
+    bot.kbotBoardLed.colorAll(Led::Color::GREEN);
     isOn = false;
 }
 
@@ -21,9 +21,9 @@ void loop(){
     
     if(bot.timer2.isReady()){
         if(isOn){
-            bot.mboardLed.colorAll(Led::Color::BLACK);
+            bot.kbotBoardLed.colorAll(Led::Color::BLACK);
         } else {
-            bot.mboardLed.colorAll(Led::Color::MAGENTA);
+            bot.kbotBoardLed.colorAll(Led::Color::MAGENTA);
         }
         isOn = !isOn;
     }
