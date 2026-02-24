@@ -13,7 +13,6 @@
 */
 #pragma once
 #include "BaseAdapter.h"
-#include "config.h"
 
 class SwitchAdapter: public BaseAdapter {
 public:

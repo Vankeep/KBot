@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "ServoAdapter.h"
-#include "state.h"
+#include "../state.h"
 
 void ServoAdapter::setAngle(Servos::Name name, int angle){
     if(angle < Servos::minAngle(name) ) {

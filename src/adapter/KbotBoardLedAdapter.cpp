@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "KbotBoardLedAdapter.h"
-#include "state.h"
+#include "../state.h"
 
 void KbotBoardLedAdapter::color(Led::Name name, int red, int green, int blue){
     if(!_isValide(red, green, blue)) return;

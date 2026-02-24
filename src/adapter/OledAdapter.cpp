@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 #include "OledAdapter.h"
-#include "config.h"
 
 #define SERIAL_Y      140
 #define SERIAL_H      100
@@ -21,6 +20,7 @@
 
 void OledAdapter::begin() {
     _initScreen();
+    _isBegin = true;
     LOG_INFO_F("%s проинициализирован", _objName);
 }
 

@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "WheelsAdapter.h"
-#include "state.h"
+#include "../state.h"
 
 void WheelsAdapter::drive(int left, int right){
     if(!_isValidateSpeed(left, "left")) return;

@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 #include "SensorButtonAdapter.h"
-#include "config.h"
 
 void SensorButtonAdapter::begin(uint8_t slot) {
     _w = 152;
@@ -21,6 +20,7 @@ void SensorButtonAdapter::begin(uint8_t slot) {
     _y = 4 + (slot / 2) * 60;
     snprintf(_text, sizeof(_text), "BTN %d", slot + 1);
     _draw();
+    _isBegin = true;
     LOG_INFO_F("%s проинициализирован", _objName);
 }
 
