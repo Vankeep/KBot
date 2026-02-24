@@ -35,5 +35,5 @@ private:
     Adafruit_NeoPixel* _pixels = nullptr;
 
     bool _isValideRgb(int r, int g, int b);
-    bool _isBeginAdapter();
+    bool _isBeginAdapter() const;
 };

@@ -16,9 +16,13 @@
 
 void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
     if(numLeds < 1) {
-        Serial.println("ERR: bot.rgbLed.begin. Аргумент numLeds не может быть менее 1");
+        LOG_ERR("bot.rgbLed.begin() Аргумент numLeds не может быть менее 1");
         return;
     };
+    if(_isBegin == true) {
+        LOG_ERR("rgbLed уже проинициализирован. Повторная инициализация игнорируется");
+        return;
+    }
 
     uint8_t pin = Pins::rigthPin(name);
     _numLeds = numLeds;
@@ -30,6 +34,8 @@ void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
     _pixels->show();
 
     _isBegin = true;
+
+    LOG_INFO("rgbLed проинициализирован");
 }
 
 void RgbLedAdapter::tick() {
@@ -43,7 +49,7 @@ void RgbLedAdapter::setColor(int pixel, int r, int g, int b) {
     if(_isBeginAdapter() == false) return;
     if(_isValideRgb(r, g, b) == false) return;
     if(pixel < 1){
-        Serial.println("ERR: bot.rgbLed.setColor. Аргумент pixel не может быть менее 1");
+        LOG_ERR("bot.rgbLed.setColor() Аргумент pixel не может быть менее 1");
         return;
     }
 
@@ -55,7 +61,7 @@ void RgbLedAdapter::setColor(int pixel, int r, int g, int b) {
 void RgbLedAdapter::setColor(int pixel, Led::Color color) {
     if(_isBeginAdapter() == false) return;
     if(pixel < 1){
-        Serial.println("ERR: bot.rgbLed.setColor. Аргумент pixel не может быть менее 1");
+        LOG_ERR("bot.rgbLed.setColor() Аргумент pixel не может быть менее 1");
         return;
     }
 
@@ -87,7 +93,7 @@ void RgbLedAdapter::setColorAll(Led::Color color) {
 void RgbLedAdapter::setBrightness(int brightness) {
     if(_isBeginAdapter() == false) return;
     if(brightness < 0 || brightness > 255){
-        Serial.println("ERR: bot.rgbLed.setBrightness. Аргумент brightness не может быть менее 0 или более 255");
+        LOG_ERR("bot.rgbLed.setBrightness() Аргумент brightness не может быть менее 0 или более 255");
         return;
     }
     
@@ -102,6 +108,7 @@ void RgbLedAdapter::clear() {
 }
 
 int RgbLedAdapter::getNumLeds() const {
+    if(_isBeginAdapter() == false) return -1;
     return _numLeds;
 }
 
@@ -109,14 +116,14 @@ bool RgbLedAdapter::_isValideRgb(int r, int g, int b){
     if(r >= 0 || g >= 0 || b >= 0 || r <= 255 || g <= 255 || b <= 255){
         return true;
     } else {
-        Serial.println("ERR: bot.rgbLed. Цвет не может быть менее 0 или более 255");
+        LOG_ERR("bot.rgbLed. Цвет не может быть менее 0 или более 255");
         return false;
     }
 }
 
-bool RgbLedAdapter::_isBeginAdapter(){
-    if(_isBegin == false){
-        Serial.println("ERR: bot.rgbLed. Не было вызова begin. Класс не инициализирован");
+bool RgbLedAdapter::_isBeginAdapter() const {
+    if(_isBegin == false) {
+        LOG_ERR("RgbLed не было вызова begin. Класс не проинициализирован");
     }
     return _isBegin;
 }
