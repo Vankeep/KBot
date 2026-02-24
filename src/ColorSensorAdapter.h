@@ -16,7 +16,7 @@
 
 class ColorSensorAdapter {
 public:
-    void begin(uint8_t address = 0x29);
+    bool begin(uint8_t address = 0x29);
     void calibrateWhite();
     void getRGB(int &r, int &g, int &b);
 

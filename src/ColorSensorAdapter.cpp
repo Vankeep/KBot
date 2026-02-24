@@ -29,7 +29,7 @@
 #define TCS34725_PON        0x01
 #define TCS34725_AEN        0x02
 
-void ColorSensorAdapter::begin(uint8_t address) {
+bool ColorSensorAdapter::begin(uint8_t address) {
     _address = address;
     _wr = _wg = _wb = 1;
     _calibrated = false;
@@ -37,7 +37,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
 
     // Check I2C ACK
     Wire.beginTransmission(_address);
-    if (Wire.endTransmission() != 0) return;
+    if (Wire.endTransmission() != 0) return _isBegin;
 
     // Verify chip ID (TCS34725 returns 0x44 or 0x4D)
     Wire.beginTransmission(_address);
@@ -45,7 +45,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
     Wire.endTransmission(false);
     Wire.requestFrom(_address, (uint8_t)1);
     uint8_t id = Wire.read();
-    if (id != 0x44 && id != 0x4D) return;
+    if (id != 0x44 && id != 0x4D) return _isBegin;
 
     _isBegin = true;
 
@@ -61,6 +61,7 @@ void ColorSensorAdapter::begin(uint8_t address) {
     _writeByteAt(TCS34725_CONTROL, 0x01);
 
     delay(200);
+    return _isBegin;
 }
 
 void ColorSensorAdapter::calibrateWhite() {
@@ -152,7 +153,7 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
 
 bool ColorSensorAdapter::_isBeginAdapter() {
     if (_isBegin == false) {
-        Serial.println("ERR: bot.colorSensor Color Sensor не инициализирован");
+        Serial.println("ERR: Color Sensor не подключен");
     }
     return _isBegin;
 }

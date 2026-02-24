@@ -39,7 +39,12 @@ void KBot::begin() {
 
     tof.begin();
 
-    colorSensor.begin();
+    if(colorSensor.begin()){
+        Serial.println("[INFO] - ColorSensor подключен и проинициализирован");
+    } else {
+        Serial.println("[INFO] - ColorSensor не найден");
+    }
+    
 
     imu.begin();
     
