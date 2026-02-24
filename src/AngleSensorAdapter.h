@@ -28,4 +28,6 @@ private:
     unsigned long _candidateTime = 0;
     static const unsigned long DEBOUNCE_MS = 150;
     static const int TOLERANCE = 2;
+
+    bool _isBeginAdapter();
 };

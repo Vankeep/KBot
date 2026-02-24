@@ -5,6 +5,7 @@ KBot bot;
 void setup() {
     bot.begin();
     bot.timer1.startEvery(100);
+    bot.angleSensor1.begin(Pins::Name::XP10);
 }
 
 void loop() {

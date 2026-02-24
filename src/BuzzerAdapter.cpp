@@ -16,7 +16,7 @@
 
 void BuzzerAdapter::begin(Pins::Name name) {
     if(_isBegin == true) {
-        Serial.println("ERR: Buzzer уже проинициализирован. Повторная инициализация игнорируется");
+        LOG_ERR("Buzzer уже проинициализирован. Повторная инициализация игнорируется");
         return;
     }
 
@@ -28,7 +28,7 @@ void BuzzerAdapter::begin(Pins::Name name) {
     ledcWrite(_ledChannel, 0);
 
     _isBegin = true;
-    Serial.println("[INFO] - Buzzer проинициализирован");
+    LOG_INFO("Buzzer проинициализирован");
 }
 
 void BuzzerAdapter::tick() {
@@ -71,14 +71,14 @@ bool BuzzerAdapter::_isValidFrequency(int frequency) {
     if(frequency >= 20 && frequency <= 20000) {
         return true;
     } else {
-        Serial.println("ERR: bot.buzzer.tone. Аргумент frequency не может быть менее 20 или более 20000");
+        LOG_ERR("bot.buzzer.tone. Аргумент frequency не может быть менее 20 или более 20000");
         return false;
     }
 }
 
 bool BuzzerAdapter::_isBeginAdapter() {
     if(_isBegin == false) {
-        Serial.println("ERR: Buzzer не было вызова begin. Класс не проинициализирован");
+        LOG_ERR("Buzzer не было вызова begin. Класс не проинициализирован");
     }
     return _isBegin;
 }

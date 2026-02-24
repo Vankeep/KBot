@@ -18,17 +18,25 @@
 void AngleSensorAdapter::begin(Pins::Name name) {
     if(name == Pins::Name::XP9 || name == Pins::Name::XP10 || 
        name == Pins::Name::XP11 || name == Pins::Name::XP8){
+        if(_isBegin == true) {
+            LOG_ERR("Angle Sensor уже проинициализирован. Повторная инициализация игнорируется");
+            return;
+        }
         _isBegin = true;
         _pin = Pins::leftPin(name);
         pinMode(_pin, INPUT);
         _lastAngle = 90;
         _candidateAngle = -1;
         _candidateTime = 0;
+        LOG_INFO("Angle Sensor проинициализирован");
+    } else {
+        LOG_ERR_VAL("bot.angleSensor.begin. Неподдерживаемый пин: ", (int)name);
+        LOG_ERR("bot.angleSensor.begin Используйте XP8, XP9, XP10 или XP11");
     }
 }
 
 int AngleSensorAdapter::getAngle() {
-    if(_isBegin == false) return 0;
+    if(_isBeginAdapter() == false) return 0;
     int rawValue = analogRead(_pin);
     int angle = (int)(rawValue * (180.0 / 4095.0));
 
@@ -53,4 +61,12 @@ int AngleSensorAdapter::getAngle() {
     }
 
     return _lastAngle;
+}
+
+bool AngleSensorAdapter::_isBeginAdapter(){
+    if(_isBegin == false) {
+        LOG_ERR("Angle Sensor не было вызова begin. Класс не проинициализирован");
+        return false;
+    }
+    return true;
 }

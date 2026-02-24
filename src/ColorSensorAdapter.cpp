@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "ColorSensorAdapter.h"
+#include "config.h"
 #include <M5Unified.h>
 #include <Wire.h>
 
@@ -153,7 +154,7 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
 
 bool ColorSensorAdapter::_isBeginAdapter() {
     if (_isBegin == false) {
-        Serial.println("ERR: Color Sensor не подключен");
+        LOG_ERR("Color Sensor не подключен");
     }
     return _isBegin;
 }

@@ -127,3 +127,18 @@ struct __attribute__((packed)) StatePacket {
   // [XP14A, XP15A, XP14B, XP15B] текущая скорость моторов 
   int wheelSpeed[4];
 };
+
+// LOGGING SYSTEM
+// Для отключения логирования добавьте #define NO_LOGGING в ваш .ino файл перед #include <KBot.h>
+#ifndef NO_LOGGING
+  #define LOG_INFO(msg) do { Serial.print("[INFO] - "); Serial.println(msg); } while(0)
+  #define LOG_ERR(msg) do { Serial.print("[ERR] - "); Serial.println(msg); } while(0)
+  #define LOG_INFO_VAL(msg, val) do { Serial.print("[INFO] - "); Serial.print(msg); Serial.println(val); } while(0)
+  #define LOG_ERR_VAL(msg, val) do { Serial.print("[ERR] - "); Serial.print(msg); Serial.println(val); } while(0)
+#else
+  #define LOG_INFO(msg)
+  #define LOG_ERR(msg)
+  #define LOG_INFO_VAL(msg, val)
+  #define LOG_ERR_VAL(msg, val)
+#endif
+
