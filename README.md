@@ -63,17 +63,11 @@ void loop() {
 **Объект:** `ultrasonic`
 
 **Методы:**
-- `long getDistanceMm()` - Получить расстояние до объекта в миллиметрах
-
-**Пример использования:** `sonar.ino`
-
 ```cpp
-void loop() {
-    bot.update();
-    int mm = bot.ultrasonic.getDistanceMm();
-    bot.oled.printStr1("Dist = " + String(mm) + " mm");
-}
+// Получить расстояние до объекта в миллиметрах
+long getDistanceMm() 
 ```
+**Пример использования:** `sonar.ino`
 
 [↑ К содержанию](#содержание)
 
@@ -88,23 +82,12 @@ void loop() {
 **Объект:** `tof`
 
 **Методы:**
-- `void begin(uint8_t address = 0x29)` - Инициализация датчика (адрес по умолчанию 0x29)
-- `long getDistanceMm()` - Получить расстояние до объекта в миллиметрах
+```cpp
+// Получить расстояние до объекта в миллиметрах
+long getDistanceMm() 
+```
 
 **Пример использования:** `tof.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    // begin() вызывать не обязательно, датчик работает по умолчанию
-}
-
-void loop() {
-    bot.update();
-    int mm = bot.tof.getDistanceMm();
-    bot.oled.printStr1("tof distance = " + String(mm) + " mm");
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -119,23 +102,13 @@ void loop() {
 **Доступные объекты:** `angleSensor1`, `angleSensor2`, `angleSensor3`, `angleSensor4`
 
 **Методы:**
-- `void begin(Pins::Name pin)` - Инициализация датчика на указанном разъеме
-- `int getAngle()` - Получить угол поворота в градусах (0-180)
-
-**Пример использования:** `angleSensor.ino`
-
 ```cpp
-void setup() {
-    bot.begin();
-    bot.angleSensor1.begin(Pins::Name::XP9);
-}
-
-void loop() {
-    bot.update();
-    int angle = bot.angleSensor1.getAngle();
-    bot.servo.setAngle(Servos::Name::SRV1, angle);
-}
+//Инициализация датчика на указанном разъеме
+void begin(Pins::Name pin) 
+// Получить угол поворота в градусах (0-180)
+int getAngle() 
 ```
+**Пример использования:** `angleSensor.ino`
 
 [↑ К содержанию](#содержание)
 
@@ -152,31 +125,17 @@ void loop() {
 - `limitSwitch1`, `limitSwitch2` - концевые выключатели
 
 **Методы:**
-- `void begin(Pins::Name pin, bool pullUp = true)` - Инициализация на указанном разъеме
-- `bool isPressed()` - Возвращает true один раз при нажатии
-- `bool isReleased()` - Возвращает true один раз при отпускании
-- `bool isHeld()` - Возвращает true пока кнопка удерживается
-
-**Пример использования:** `button.ino`
-
 ```cpp
-void setup() {
-    bot.begin();
-    bot.button1.begin(Pins::Name::XP8);
-}
-
-void loop() {
-    bot.update();
-
-    if (bot.button1.isPressed()) {
-        bot.oled.printStr1("isPressed");
-    }
-
-    if (bot.button1.isHeld()) {
-        bot.oled.printStr2("isHeld");
-    }
-}
+// Инициализация на указанном разъеме
+void begin(Pins::Name pin)
+// Возвращает true один раз при нажатии 
+bool isPressed() 
+// Возвращает true один раз при отпускании
+bool isReleased()
+// Возвращает true пока кнопка удерживается 
+bool isHeld() 
 ```
+**Пример использования:** `button.ino`
 
 [↑ К содержанию](#содержание)
 
@@ -191,29 +150,18 @@ void loop() {
 **Доступные объекты:** `lineSensor1`, `lineSensor2`, `lineSensor3`, `lineSensor4`
 
 **Методы:**
-- `void begin(Pins::Name pin)` - Инициализация датчика на указанном разъеме
-- `bool isOnLine()` - Возвращает true, если датчик видит линию
-- `bool isDetected()` - Возвращает true один раз при обнаружении линии
-- `bool isLost()` - Возвращает true один раз при потере линии
+```cpp
+// Инициализация датчика на указанном разъеме
+void begin(Pins::Name pin)
+// Возвращает true, если датчик видит линию 
+bool isOnLine() 
+// Возвращает true один раз при обнаружении линии
+bool isDetected()
+// Возвращает true один раз при потере линии 
+bool isLost() 
+```
 
 **Пример использования:** `lineSensor.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.lineSensor1.begin(Pins::Name::XP8);
-    bot.lineSensor2.begin(Pins::Name::XP11);
-}
-
-void loop() {
-    bot.update();
-
-    bool line1 = bot.lineSensor1.isOnLine();
-    bool line2 = bot.lineSensor2.isOnLine();
-
-    bot.oled.printStr1(String(line1) + " | " + String(line2));
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -228,36 +176,24 @@ void loop() {
 **Объект:** `colorSensor`
 
 **Методы:**
-- `void begin(uint8_t address = 0x29)` - Инициализация датчика (адрес по умолчанию 0x29)
-- `void calibrateWhite()` - Калибровка по белому листу (вызывать при включении)
-- `void getRGB(int &r, int &g, int &b)` - Получить значения RGB цвета
-- `bool isRed(int r, int g, int b)` - Проверить, красный ли это цвет
-- `bool isGreen(int r, int g, int b)` - Проверить, зеленый ли это цвет
-- `bool isBlue(int r, int g, int b)` - Проверить, синий ли это цвет
-- `bool isWhite(int r, int g, int b)` - Проверить, белый ли это цвет
-- `bool isBlack(int r, int g, int b)` - Проверить, черный ли это цвет
+```cpp
+// Калибровка по белому цвету
+void calibrateWhite() 
+// Получить значения RGB цвета
+void getRGB(int &r, int &g, int &b) 
+// Проверить, красный ли это цвет
+bool isRed(int r, int g, int b) 
+// Проверить, зеленый ли это цвет
+bool isGreen(int r, int g, int b) 
+// Проверить, синий ли это цвет
+bool isBlue(int r, int g, int b) 
+// Проверить, белый ли это цвет
+bool isWhite(int r, int g, int b) 
+// Проверить, черный ли это цвет
+bool isBlack(int r, int g, int b) 
+```
 
 **Пример использования:** `colorSensor.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.colorSensor.calibrateWhite(); // Калибровка по белому
-}
-
-void loop() {
-    bot.update();
-
-    int r, g, b;
-    bot.colorSensor.getRGB(r, g, b);
-
-    if (bot.colorSensor.isRed(r, g, b)) {
-        bot.oled.printStr1("RED");
-    } else if (bot.colorSensor.isGreen(r, g, b)) {
-        bot.oled.printStr1("GREEN");
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -272,39 +208,26 @@ void loop() {
 **Объект:** `imu`
 
 **Методы:**
-- `void begin(uint8_t address = 0x68)` - Инициализация датчика (адрес по умолчанию 0x68)
-- `int getPitch()` - Получить угол наклона (pitch) в градусах
-- `int getRoll()` - Получить угол крена (roll) в градусах
-- `int getAccelX()` - Получить ускорение по оси X
-- `int getAccelY()` - Получить ускорение по оси Y
-- `int getAccelZ()` - Получить ускорение по оси Z
-- `int getGyroX()` - Получить угловую скорость по оси X
-- `int getGyroY()` - Получить угловую скорость по оси Y
-- `int getGyroZ()` - Получить угловую скорость по оси Z
+```cpp
+// Получить угол наклона (pitch) в градусах
+int getPitch() 
+// Получить угол крена (roll) в градусах
+int getRoll() 
+// Получить ускорение по оси X
+int getAccelX() 
+// Получить ускорение по оси Y
+int getAccelY() 
+// Получить ускорение по оси Z
+int getAccelZ() 
+// Получить угловую скорость по оси X
+int getGyroX() 
+// Получить угловую скорость по оси Y
+int getGyroY() 
+// Получить угловую скорость по оси Z
+int getGyroZ() 
+```
 
 **Пример использования:** `imu.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    // begin() вызывать не обязательно, датчик работает по умолчанию
-    bot.timer1.startEvery(100);
-}
-
-void loop() {
-    bot.update();
-
-    if (bot.timer1.isReady()) {
-        int pitch = bot.imu.getPitch();
-        int roll  = bot.imu.getRoll();
-        int ax    = bot.imu.getAccelX();
-
-        bot.oled.printStr1("Naklon: " + String(pitch));
-        bot.oled.printStr2("Kren: " + String(roll));
-        bot.oled.printStr3("AccelX: " + String(ax));
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -319,25 +242,18 @@ void loop() {
 **Объект:** `wheel`
 
 **Методы:**
-- `void drive(int left, int right)` - Управление левыми и правыми моторами (-200...200)
-- `void drive(Wheel::Name motor, int speed)` - Управление отдельным мотором (-200...200)
-- `void stop(Wheel::Name motor)` - Остановить один мотор
-- `void stopAll()` - Остановить все моторы
+```cpp
+// Управление левыми и правыми моторами (-200...200)
+void drive(int left, int right) 
+// Управление отдельным мотором (-200...200)
+void drive(Wheel::Name motor, int speed)
+// Остановить один мотор 
+void stop(Wheel::Name motor)
+// Остановить все моторы
+void stopAll() 
+```
 
 **Пример использования:** `wheel.ino`
-
-```cpp
-void loop() {
-    bot.update();
-
-    // Оба мотора вперед на скорости 50
-    bot.wheel.drive(50, 50);
-
-    // Или управление отдельными моторами
-    bot.wheel.drive(Wheel::Name::XP14A, 50);
-    bot.wheel.drive(Wheel::Name::XP15A, -50);
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -352,28 +268,16 @@ void loop() {
 **Объект:** `servo`
 
 **Методы:**
-- `void setAngle(Servos::Name servo, int angle)` - Установить угол сервопривода (0-180)
-- `int getAngle(Servos::Name servo)` - Получить текущий угол сервопривода
-- `void goHome()` - Вернуть все сервоприводы в начальное положение (90°)
+```cpp
+// Установить угол сервопривода (0-180)
+void setAngle(Servos::Name servo, int angle)
+// Получить текущий угол сервопривода 
+int getAngle(Servos::Name servo)
+// Вернуть все сервоприводы в начальное положение (90°) 
+void goHome() 
+```
 
 **Пример использования:** `servo.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.servo.setAngle(Servos::Name::SRV1, 0);
-}
-
-void loop() {
-    bot.update();
-
-    if (bot.servo.getAngle(Servos::Name::SRV1) == 0) {
-        bot.servo.setAngle(Servos::Name::SRV1, 180);
-    } else {
-        bot.servo.setAngle(Servos::Name::SRV1, 0);
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -388,30 +292,22 @@ void loop() {
 **Объект:** `mboardLed`
 
 **Методы:**
-- `void color(Led::Name led, int red, int green, int blue)` - Установить RGB цвет (0-255 для каждого цвета)
-- `void color(Led::Name led, Led::Color color)` - Установить цвет из готовых
-- `void colorAll(Led::Color color)` - Установить цвет всех светодиодов
-- `void off(Led::Name led)` - Выключить один светодиод
-- `void offAll()` - Выключить все светодиоды
+```cpp
+// Установить RGB цвет (0-255 для каждого цвета)
+void color(Led::Name led, int red, int green, int blue)
+// Установить цвет из готовых 
+void color(Led::Name led, Led::Color color)
+// Установить цвет всех светодиодов 
+void colorAll(Led::Color color)
+// Выключить один светодиод 
+void off(Led::Name led)
+// Выключить все светодиоды 
+void offAll() 
+```
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
 **Пример использования:** `mboardLed.ino`
-
-```cpp
-void loop() {
-    bot.update();
-
-    // Зажечь один светодиод красным
-    bot.mboardLed.color(Led::Name::DA9, Led::Color::RED);
-
-    // Или задать свой цвет (красный, зеленый, синий)
-    bot.mboardLed.color(Led::Name::DA14, 255, 0, 128);
-
-    // Зажечь все светодиоды
-    bot.mboardLed.colorAll(Led::Color::GREEN);
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -426,35 +322,28 @@ void loop() {
 **Объект:** `rgbLed`
 
 **Методы:**
-- `void begin(Pins::Name pin, int numLeds = 3)` - Инициализация ленты (указать пин и количество светодиодов)
-- `void setColor(int pixel, int r, int g, int b)` - Установить цвет одного светодиода (0-255 для каждого цвета)
-- `void setColor(int pixel, Color::Name color)` - Установить готовый цвет
-- `void setColorAll(int r, int g, int b)` - Установить цвет всех светодиодов
-- `void setColorAll(Color::Name color)` - Установить готовый цвет для всех
-- `void setBrightness(int brightness)` - Установить яркость (0-255)
-- `void clear()` - Выключить все светодиоды
-- `int getNumLeds()` - Получить количество светодиодов
+```cpp
+// Инициализация ленты (указать пин и количество светодиодов)
+void begin(Pins::Name pin, int numLeds = 3) 
+// Установить цвет одного светодиода (0-255 для каждого цвета)
+void setColor(int pixel, int r, int g, int b) 
+// Установить готовый цвет
+void setColor(int pixel, Color::Name color) 
+// Установить цвет всех светодиодов
+void setColorAll(int r, int g, int b) 
+// Установить готовый цвет для всех
+void setColorAll(Color::Name color)
+// Установить яркость (0-255)
+void setBrightness(int brightness) 
+// Выключить все светодиоды
+void clear() 
+// Получить количество светодиодов
+int getNumLeds() 
+```
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
 **Пример использования:** `rgbLed.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.rgbLed.begin(Pins::Name::XP11, 6); // 6 светодиодов на пине XP11
-}
-
-void loop() {
-    bot.update();
-
-    // Зажечь первый светодиод красным
-    bot.rgbLed.setColor(0, Led::Color::RED);
-
-    // Зажечь все светодиоды синим
-    bot.rgbLed.setColorAll(0, 0, 255);
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -469,34 +358,16 @@ void loop() {
 **Объект:** `buzzer`
 
 **Методы:**
-- `void begin(Pins::Name pin)` - Инициализация зуммера на указанном разъеме
-- `void tone(int frequency, unsigned long duration = 0)` - Воспроизвести тон с указанной частотой (в Гц) и длительностью (в мс). Если duration = 0, тон будет звучать постоянно
-- `void noTone()` - Остановить воспроизведение звука
+```cpp
+// Инициализация зуммера на указанном разъеме
+void begin(Pins::Name pin)
+// Воспроизвести тон с указанной частотой (в Гц) и длительностью (в мс). Если duration = 0, тон будет звучать постоянно
+void tone(int frequency, unsigned long duration = 0) 
+// Остановить воспроизведение звука
+void noTone()
+```
 
 **Пример использования:** `buzzer.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.buzzer.begin(Pins::Name::XP11);
-
-    // Три ноты вверх
-    bot.buzzer.tone(1000, 100);
-    delay(150);
-    bot.buzzer.tone(1500, 100);
-    delay(150);
-    bot.buzzer.tone(2000, 300);
-}
-
-void loop() {
-    bot.update();
-
-    // Воспроизвести ноту Ми (659 Гц) на 200 мс
-    if (bot.button1.isPressed()) {
-        bot.buzzer.tone(659, 200);
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -509,31 +380,36 @@ void loop() {
 **Объект:** `oled`
 
 **Методы:**
-- `void printStr1(...)` - Вывод данных в строку 1
-- `void printStr2(...)` - Вывод данных в строку 2
-- `void printStr3(...)` - Вывод данных в строку 3
-- `void printStr4(...)` - Вывод данных в строку 4
-- `void clear()` - Очистить весь дисплей
+```cpp
+// Вывод данных в строку 1
+void printStr1(...)
+// Вывод данных в строку 2
+void printStr2(...)
+// Вывод данных в строку 3
+void printStr3(...)
+// Вывод данных в строку 4
+void printStr4(...)
+// Очистить весь дисплей
+void clear()
+```
 
 **Что можно выводить:**
 
 Все функции `printStr1-4` умеют выводить:
-- Текст: `bot.oled.printStr1("Привет")`
-- Целые числа: `bot.oled.printStr2(123)`
-- Большие числа: `bot.oled.printStr3(987654L)`
-- Дробные числа: `bot.oled.printStr4(3.14)` или с указанием точности `bot.oled.printStr4(3.14159, 3)`
-
-**Пример:**
-
 ```cpp
-int distance = 42;
-float temperature = 23.5;
-
-bot.oled.printStr1("Датчик:");
-bot.oled.printStr2(distance);           // выведет: 42
-bot.oled.printStr3(temperature);        // выведет: 23.50
-bot.oled.printStr4(temperature, 1);     // выведет: 23.5
+// Текст
+bot.oled.printStr1("Привет")
+// Целые числа
+bot.oled.printStr2(123)
+// Большие числа
+bot.oled.printStr3(987654L)
+// Дробные числа
+bot.oled.printStr4(3.14)
+// Дробные числа указанием точности
+bot.oled.printStr4(3.14159, 3)
 ```
+
+**Пример:** TODO добавить пример
 
 [↑ К содержанию](#содержание)
 
@@ -546,30 +422,14 @@ bot.oled.printStr4(temperature, 1);     // выведет: 23.5
 **Доступные объекты:** `sensorBTN1`, `sensorBTN2`, `sensorBTN3`, `sensorBTN4`
 
 **Методы:**
-- `void setText(const char* text)` - Установить текст на кнопке
-- `bool isClick()` - Проверить, нажата ли кнопка (возвращает true один раз при нажатии)
+```cpp
+// Установить текст на кнопке
+void setText(const char* text) 
+// Проверить, нажата ли кнопка (возвращает true один раз при нажатии)
+bool isClick() 
+```
 
 **Пример использования:** `sensorButton.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.sensorBTN1.setText("START");
-    bot.sensorBTN2.setText("STOP");
-}
-
-void loop() {
-    bot.update();
-
-    if (bot.sensorBTN1.isClick()) {
-        bot.wheel.drive(50, 50);
-    }
-
-    if (bot.sensorBTN2.isClick()) {
-        bot.wheel.stopAll();
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
@@ -582,36 +442,24 @@ void loop() {
 **Доступные объекты:** `timer1`, `timer2`, `timer3`, `timer4`
 
 **Методы:**
-- `void startOnce(uint32_t ms)` - Запустить таймер на один раз (время в миллисекундах)
-- `void startEvery(uint32_t ms)` - Запустить повторяющийся таймер (время в миллисекундах)
-- `void stop()` - Остановить таймер
-- `void reset()` - Сбросить таймер
-- `bool isReady()` - Проверить, сработал ли таймер (true один раз при срабатывании)
-- `bool isActive()` - Проверить, работает ли таймер
-- `bool isDone()` - Проверить, завершился ли таймер
+```cpp
+// Запустить таймер на один раз (время в миллисекундах)
+void startOnce(uint32_t ms)
+// Запустить повторяющийся таймер (время в миллисекундах)
+void startEvery(uint32_t ms)
+// Остановить таймер
+void stop()
+// Сбросить таймер
+void reset()
+// Проверить, сработал ли таймер (true один раз при срабатывании)
+bool isReady()
+// Проверить, работает ли таймер
+bool isActive()
+// Проверить, завершился ли таймер
+bool isDone()
+```
 
 **Пример использования:** `timer.ino`
-
-```cpp
-void setup() {
-    bot.begin();
-    bot.timer1.startOnce(3000);  // Запустить на 3 секунды
-}
-
-void loop() {
-    bot.update();
-
-    if (bot.timer1.isDone()) {
-        bot.timer1.stop();
-        bot.timer2.startEvery(500);  // Повторять каждые 0.5 секунды
-    }
-
-    if (bot.timer2.isReady()) {
-        // Этот код выполнится каждые 0.5 секунды
-        bot.mboardLed.colorAll(Color::RED);
-    }
-}
-```
 
 [↑ К содержанию](#содержание)
 
