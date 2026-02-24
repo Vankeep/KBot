@@ -14,13 +14,13 @@
 #include "BuzzerAdapter.h"
 #include <M5Unified.h>
 
-void BuzzerAdapter::begin(Pins::Name name) {
+void BuzzerAdapter::begin(Connector::Name name) {
     if(_isBegin == true) {
         LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
 
-    _pin = Pins::rigthPin(name);
+    _pin = Connector::rigthPin(name);
     _ledChannel = 0;
 
     ledcSetup(_ledChannel, 4000, 10);

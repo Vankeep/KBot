@@ -18,7 +18,7 @@
 class LineSensorAdapter : public BaseAdapter{
 public:
     LineSensorAdapter(const char* objName) : BaseAdapter(objName) {}
-    void begin(Pins::Name name);
+    void begin(Connector::Name name);
     void tick();
     bool isOnLine();
     bool isDetected();

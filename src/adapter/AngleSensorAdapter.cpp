@@ -15,15 +15,15 @@
 #include <M5Unified.h>
 #include <math.h>
 
-void AngleSensorAdapter::begin(Pins::Name name) {
-    if(name == Pins::Name::XP9 || name == Pins::Name::XP10 || 
-       name == Pins::Name::XP11 || name == Pins::Name::XP8){
+void AngleSensorAdapter::begin(Connector::Name name) {
+    if(name == Connector::Name::XP9 || name == Connector::Name::XP10 || 
+       name == Connector::Name::XP11 || name == Connector::Name::XP8){
         if(_isBegin == true) {
             LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
         _isBegin = true;
-        _pin = Pins::leftPin(name);
+        _pin = Connector::leftPin(name);
         pinMode(_pin, INPUT);
         _lastAngle = 90;
         _candidateAngle = -1;

@@ -1,13 +1,13 @@
 #include "LineSensorAdapter.h"
 
-void LineSensorAdapter::begin(Pins::Name name) {
-    if (name == Pins::Name::XP8  || name == Pins::Name::XP10 || 
-        name == Pins::Name::XP11 || name == Pins::Name::XP13) {
+void LineSensorAdapter::begin(Connector::Name name) {
+    if (name == Connector::Name::XP8  || name == Connector::Name::XP10 || 
+        name == Connector::Name::XP11 || name == Connector::Name::XP13) {
         if(_isBegin == true) {
             LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
-        _pin = Pins::leftPin(name);
+        _pin = Connector::leftPin(name);
         pinMode(_pin, INPUT);
 
         _emaScaled   = analogRead(_pin) * EMA_DEN;

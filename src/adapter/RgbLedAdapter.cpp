@@ -14,7 +14,7 @@
 #include "RgbLedAdapter.h"
 #include <M5Unified.h>
 
-void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
+void RgbLedAdapter::begin(Connector::Name name, int numLeds) {
     if(numLeds < 1) {
         LOG_ERR_F("%s.begin() Аргумент numLeds не может быть менее 1", _objName);
         return;
@@ -24,7 +24,7 @@ void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
         return;
     }
 
-    uint8_t pin = Pins::rigthPin(name);
+    uint8_t pin = Connector::rigthPin(name);
     _numLeds = numLeds;
 
     _pixels = new Adafruit_NeoPixel(_numLeds, pin, NEO_GRB + NEO_KHZ800);

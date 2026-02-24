@@ -18,7 +18,7 @@
 class RgbLedAdapter : public BaseAdapter{
 public:
     RgbLedAdapter(const char* objName) : BaseAdapter(objName) {}
-    void begin(Pins::Name name, int numLeds = 3);
+    void begin(Connector::Name name, int numLeds = 3);
     void tick();
     void setColor(int pixel, int r, int g, int b);
     void setColor(int pixel, Led::Color color);

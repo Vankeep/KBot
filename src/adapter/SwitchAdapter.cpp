@@ -14,15 +14,15 @@
 #include "SwitchAdapter.h"
 #include <M5Unified.h>
 
-void SwitchAdapter::begin(Pins::Name name, bool pullUp) {
-    if(name == Pins::Name::XP8 || name == Pins::Name::XP9 ||
-       name == Pins::Name::XP10 || name == Pins::Name::XP11 || name == Pins::Name::XP13){
+void SwitchAdapter::begin(Connector::Name name, bool pullUp) {
+    if(name == Connector::Name::XP8 || name == Connector::Name::XP9 ||
+       name == Connector::Name::XP10 || name == Connector::Name::XP11 || name == Connector::Name::XP13){
         if(_isBegin == true) {
             LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
         _isBegin = true;
-        _pin = Pins::leftPin(name);
+        _pin = Connector::leftPin(name);
         _pullUp = pullUp;
         pinMode(_pin, _pullUp ? INPUT_PULLUP : INPUT);
         _state = false;

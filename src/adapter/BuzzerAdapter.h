@@ -18,7 +18,7 @@
 class BuzzerAdapter : public BaseAdapter {
 public:
     BuzzerAdapter(const char* objName) : BaseAdapter(objName) {}
-    void begin(Pins::Name name);
+    void begin(Connector::Name name);
     void tick();
     void tone(int frequency, unsigned long duration = 0);
     void noTone();

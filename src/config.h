@@ -86,22 +86,24 @@ namespace Led{
 #define LED_COUNT                           4
 #define LED_PIN                             1
 
-namespace Pins {
+namespace Connector {
   enum Name : uint8_t { XP8, XP9, XP10, XP13, XP12, XP11, COUNT }; 
   struct Config {
     uint8_t leftPin;
     uint8_t rigthPin;
+    const char* text;
   };
   constexpr Config config[] = {
-    [XP8] =  {35, 23},        //   16 15 14 35 8 38 37 11
-    [XP9] =  {0,  27},
-    [XP10] = {34, 2 }, 
-    [XP13] = {38, 26},
-    [XP12] = {18, 19},
-    [XP11] = {36, 25}
+    [XP8] =  {35, 23, "XP8"},        //   16 15 14 35 8 38 37 11
+    [XP9] =  {0,  27, "XP9"},
+    [XP10] = {34, 2 , "XP10"}, 
+    [XP13] = {38, 26, "XP13"},
+    [XP12] = {18, 19, "XP12"},
+    [XP11] = {36, 25, "XP11"}
   };
   constexpr uint8_t leftPin(Name n)  { return config[n].leftPin; }
   constexpr uint8_t rigthPin(Name n) { return config[n].rigthPin; }
+  constexpr const char* text(Name n)   { return config[n].text; }
   constexpr Name getName(uint8_t i)  { return static_cast<Name>(i); }
 }
 

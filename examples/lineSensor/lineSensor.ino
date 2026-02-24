@@ -8,8 +8,8 @@ bool isOledUpdate;
 
 void setup(){
     bot.begin();
-    bot.lineSensor1.begin(Pins::Name::XP8);
-    bot.lineSensor2.begin(Pins::Name::XP11);
+    bot.lineSensor1.begin(Connector::Name::XP8);
+    bot.lineSensor2.begin(Connector::Name::XP11);
     bot.oled.printStr1("XP8 | XP11");
 }
 

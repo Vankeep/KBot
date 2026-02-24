@@ -7,7 +7,7 @@ String name;
 
 void setup(){
   bot.begin();
-  bot.angleSensor1.begin(Pins::Name::XP9);
+  bot.angleSensor1.begin(Connector::Name::XP9);
 
   name = "SRV1";
   servoName = Servos::Name::SRV1;

@@ -4,7 +4,7 @@ KBot bot;
 
 void setup(){
     bot.begin();
-    bot.button1.begin(Pins::Name::XP8);
+    bot.button1.begin(Connector::Name::XP8);
 }
 
 void loop(){

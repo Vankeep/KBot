@@ -17,7 +17,7 @@
 class SwitchAdapter: public BaseAdapter {
 public:
     SwitchAdapter(const char* objName) : BaseAdapter(objName) {};
-    void begin(Pins::Name name, bool pullUp = true);
+    void begin(Connector::Name name, bool pullUp = true);
     void tick();
 
     bool isPressed();   // true один раз при замыкании

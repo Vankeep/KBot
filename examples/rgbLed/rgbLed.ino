@@ -15,7 +15,7 @@ int offset = 0;
 
 void setup() {
   bot.begin();
-  bot.rgbLed.begin(Pins::Name::XP11, 6);
+  bot.rgbLed.begin(Connector::Name::XP11, 6);
   bot.rgbLed.setBrightness(125);
   bot.timer1.startEvery(200);
 }

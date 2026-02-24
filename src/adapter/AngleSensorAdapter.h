@@ -17,7 +17,7 @@
 class AngleSensorAdapter : public BaseAdapter{
 public:
     AngleSensorAdapter(const char* objName) : BaseAdapter(objName) {}
-    void begin(Pins::Name name);
+    void begin(Connector::Name name);
     int getAngle();
 
 private:

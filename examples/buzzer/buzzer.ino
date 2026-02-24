@@ -13,7 +13,7 @@ bool melodyDone = false; // мелодия закончилась?
 
 void setup() {
     bot.begin();
-    bot.buzzer.begin(Pins::Name::XP11);
+    bot.buzzer.begin(Connector::Name::XP11);
 
     //три ноты вверх
     bot.buzzer.tone(1000, 100);
