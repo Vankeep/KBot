@@ -12,14 +12,16 @@
 * GNU General Public License for more details.
 */
 #include "SensorButtonAdapter.h"
+#include "config.h"
 
-void SensorButtonAdapter::init(uint8_t slot) {
+void SensorButtonAdapter::begin(uint8_t slot, const char* nameObj) {
     _w = 152;
     _h = 48;
     _x = 4 + (slot % 2) * 160;
     _y = 4 + (slot / 2) * 60;
     snprintf(_text, sizeof(_text), "BTN %d", slot + 1);
     _draw();
+    LOG_INFO_F("%s проинициализирован", nameObj);
 }
 
 void SensorButtonAdapter::setText(const char* text) {

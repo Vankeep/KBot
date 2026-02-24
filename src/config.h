@@ -130,15 +130,38 @@ struct __attribute__((packed)) StatePacket {
 
 // LOGGING SYSTEM
 // Для отключения логирования добавьте #define NO_LOGGING в ваш .ino файл перед #include <KBot.h>
+// Макросы можно использовать в своем коде
+
+// - d = decimal (десятичное целое число)
+// - s = string (строка)
+// - f = float (дробное число)
+// - x = hexadecimal (шестнадцатеричное)
+// - u = unsigned (беззнаковое целое)
+// - c = char (один символ)
+// LOG_INFO_F("%s проинициализирован", nameObj);
+// LOG_ERR_F("Ошибка на пине %d", pinNumber);
+// LOG_INFO_F("Значение %s: %d", name, value);
 #ifndef NO_LOGGING
   #define LOG_INFO(msg) do { Serial.print("[INFO] - "); Serial.println(msg); } while(0)
   #define LOG_ERR(msg) do { Serial.print("[ERR] - "); Serial.println(msg); } while(0)
   #define LOG_INFO_VAL(msg, val) do { Serial.print("[INFO] - "); Serial.print(msg); Serial.println(val); } while(0)
   #define LOG_ERR_VAL(msg, val) do { Serial.print("[ERR] - "); Serial.print(msg); Serial.println(val); } while(0)
+  #define LOG_INFO_F(fmt, ...) do { \
+    char logBuffer[100]; \
+    snprintf(logBuffer, sizeof(logBuffer), fmt, __VA_ARGS__); \
+    LOG_INFO(logBuffer); \
+  } while(0)
+  #define LOG_ERR_F(fmt, ...) do { \
+    char logBuffer[100]; \
+    snprintf(logBuffer, sizeof(logBuffer), fmt, __VA_ARGS__); \
+    LOG_ERR(logBuffer); \
+  } while(0)
 #else
   #define LOG_INFO(msg)
   #define LOG_ERR(msg)
   #define LOG_INFO_VAL(msg, val)
   #define LOG_ERR_VAL(msg, val)
+  #define LOG_INFO_F(fmt, ...)
+  #define LOG_ERR_F(fmt, ...)
 #endif
 

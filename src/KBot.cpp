@@ -24,10 +24,10 @@ void KBot::begin() {
     delay(2500);
 
     M5.Lcd.fillScreen(TFT_BLACK);
-    sensorBTN1.init(0);
-    sensorBTN2.init(1);
-    sensorBTN3.init(2);
-    sensorBTN4.init(3);
+    sensorBTN1.begin(0, "sensorBTN1");
+    sensorBTN2.begin(1, "sensorBTN2");
+    sensorBTN3.begin(2, "sensorBTN3");
+    sensorBTN4.begin(3, "sensorBTN4");
     oled.begin();
 
     ultrasonic.begin();

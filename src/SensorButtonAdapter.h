@@ -16,7 +16,7 @@
 
 class SensorButtonAdapter {
 public:
-    void init(uint8_t slot);
+    void begin(uint8_t slot, const char* nameObj);
     void setText(const char* text);
     bool isClick();
 
