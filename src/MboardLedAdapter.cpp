@@ -40,5 +40,10 @@ void MboardLedAdapter::offAll(){
 }
 
 bool MboardLedAdapter::_isValide(int red, int green, int blue){
-    return (red >= 0  && red <= 255) && (green >=0 && green <=255) && (blue >=0 && blue <=255);
+    if((red >= 0  && red <= 255) && (green >=0 && green <=255) && (blue >=0 && blue <=255)){
+        return true;
+    } else {
+        LOG_ERR("bot.mboardLed В функцию передано значение r или g или b либо менее 0 либо более 255");
+        return false;
+    }
 }
