@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "BuzzerAdapter.h"
+#include "../ConnectorManager.h"
 #include <M5Unified.h>
 
 void BuzzerAdapter::begin(Connector::Name name) {
@@ -19,7 +20,7 @@ void BuzzerAdapter::begin(Connector::Name name) {
         LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
-
+    if (!ConnectorManager::claim(name, _objName)) return;
     _pin = Connector::rigthPin(name);
     _ledChannel = 0;
 

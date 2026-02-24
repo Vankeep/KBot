@@ -1,4 +1,5 @@
 #include "LineSensorAdapter.h"
+#include "../ConnectorManager.h"
 
 void LineSensorAdapter::begin(Connector::Name name) {
     if (name == Connector::Name::XP8  || name == Connector::Name::XP10 || 
@@ -7,6 +8,7 @@ void LineSensorAdapter::begin(Connector::Name name) {
             LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
+        if (!ConnectorManager::claim(name, _objName)) return;
         _pin = Connector::leftPin(name);
         pinMode(_pin, INPUT);
 

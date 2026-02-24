@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "RgbLedAdapter.h"
+#include "../ConnectorManager.h"
 #include <M5Unified.h>
 
 void RgbLedAdapter::begin(Connector::Name name, int numLeds) {
@@ -23,6 +24,7 @@ void RgbLedAdapter::begin(Connector::Name name, int numLeds) {
         LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
+    if (!ConnectorManager::claim(name, _objName)) return;
 
     uint8_t pin = Connector::rigthPin(name);
     _numLeds = numLeds;

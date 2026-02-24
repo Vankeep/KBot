@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "SwitchAdapter.h"
+#include "../ConnectorManager.h"
 #include <M5Unified.h>
 
 void SwitchAdapter::begin(Connector::Name name, bool pullUp) {
@@ -21,6 +22,8 @@ void SwitchAdapter::begin(Connector::Name name, bool pullUp) {
             LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
+        if (!ConnectorManager::claim(name, _objName)) return;
+
         _isBegin = true;
         _pin = Connector::leftPin(name);
         _pullUp = pullUp;

@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 #include "AngleSensorAdapter.h"
+#include "../ConnectorManager.h"
 #include <M5Unified.h>
 #include <math.h>
 
@@ -22,6 +23,7 @@ void AngleSensorAdapter::begin(Connector::Name name) {
             LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
+        if (!ConnectorManager::claim(name, _objName)) return;
         _isBegin = true;
         _pin = Connector::leftPin(name);
         pinMode(_pin, INPUT);
