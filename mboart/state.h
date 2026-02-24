@@ -24,9 +24,9 @@ public:
       setWheelSpeed(name, Wheel::initSpeed(name));
     }
 
-    for(uint8_t i = 0; i < ServoPins::Name::COUNT; i++){
-      ServoPins::Name name = ServoPins::getName(i);
-      setServoAngle(name, ServoPins::initAngle(name));
+    for(uint8_t i = 0; i < ServoPin::Name::COUNT; i++){
+      ServoPin::Name name = ServoPin::getName(i);
+      setServoAngle(name, ServoPin::initAngle(name));
     }
 
     for(uint8_t i = 0; i < Led::Name::COUNT; i++){
@@ -40,8 +40,8 @@ public:
   static void setWheelSpeed(Wheel::Name n, int val) { _set(&_statePacket.wheelSpeed[n], val); }
   static int getWheelSpeed(Wheel::Name n) { return _statePacket.wheelSpeed[n]; }
 
-  static void setServoAngle(ServoPins::Name n, uint8_t val) { _set(&_statePacket.servoAngle[n], val); }
-  static uint8_t getServoAngle(ServoPins::Name n) { return _statePacket.servoAngle[n]; }
+  static void setServoAngle(ServoPin::Name n, uint8_t val) { _set(&_statePacket.servoAngle[n], val); }
+  static uint8_t getServoAngle(ServoPin::Name n) { return _statePacket.servoAngle[n]; }
 
   static void setLedColor(Led::Name n, uint32_t color){ _set(&_statePacket.ledColor[n], color);}
   static uint32_t getLedColor(Led::Name n){ return _statePacket.ledColor[n]; }

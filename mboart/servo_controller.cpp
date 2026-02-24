@@ -18,18 +18,18 @@
 #include "state.h"
 
 void ServoController::init() {
-    pinMode(ServoPins::POWER_PIN, OUTPUT);
-    digitalWrite(ServoPins::POWER_PIN, HIGH);
+    pinMode(ServoPin::POWER_PIN, OUTPUT);
+    digitalWrite(ServoPin::POWER_PIN, HIGH);
     delay(100);
 
-    for(uint8_t i = 0; i < ServoPins::Name::COUNT; i++){
-      ServoPins::Name name = ServoPins::getName(i);
+    for(uint8_t i = 0; i < ServoPin::Name::COUNT; i++){
+      ServoPin::Name name = ServoPin::getName(i);
 
-      uint8_t angle = ServoPins::initAngle(name);
+      uint8_t angle = ServoPin::initAngle(name);
       _currentAngles[i] = angle;
       _targetAngles[i] = angle;
 
-      _servos[i].attach(ServoPins::pwmPin(name));
+      _servos[i].attach(ServoPin::pwmPin(name));
       _servos[i].write(angle);
       delay(10);
     }
@@ -39,14 +39,14 @@ void ServoController::init() {
 void ServoController::loop() {
   if (!_markChangedFlag) { return; }
   const unsigned long now = millis();
-  if (now - _lastStepMs < ServoPins::STEP_INTERVAL_MS) { return; }
+  if (now - _lastStepMs < ServoPin::STEP_INTERVAL_MS) { return; }
   _lastStepMs = now;
 
   bool allArrived = true;
 
-  for (uint8_t i = 0; i < ServoPins::Name::COUNT; i++) {
+  for (uint8_t i = 0; i < ServoPin::Name::COUNT; i++) {
     if (_currentAngles[i] == _targetAngles[i]) { continue; }
-    ServoPins::Name name = ServoPins::getName(i);
+    ServoPin::Name name = ServoPin::getName(i);
 
     _currentAngles[i] += (_currentAngles[i] < _targetAngles[i]) ? 1 : -1;
     _servos[i].write(_currentAngles[i]);
@@ -58,16 +58,16 @@ void ServoController::loop() {
 
   if (allArrived) {
     _markChangedFlag = false;
-    for (uint8_t i = 0; i < ServoPins::Name::COUNT; i++) {
-      ServoPins::Name name = ServoPins::getName(i);
+    for (uint8_t i = 0; i < ServoPin::Name::COUNT; i++) {
+      ServoPin::Name name = ServoPin::getName(i);
       State::setServoAngle(name, _currentAngles[i]);
     }
   }
 }
 
 void ServoController::setTargetAngles(uint8_t* targetServoAngle){
-  for(uint8_t i = 0; i < ServoPins::Name::COUNT; i++){
-    ServoPins::Name name = ServoPins::getName(i);
+  for(uint8_t i = 0; i < ServoPin::Name::COUNT; i++){
+    ServoPin::Name name = ServoPin::getName(i);
 
     uint8_t currentAngle = State::getServoAngle(name);
 

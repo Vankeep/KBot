@@ -24,9 +24,9 @@ public:
   void setTargetAngles(uint8_t* targetServoAngle);
 
 private:
-  Servo _servos[ServoPins::Name::COUNT];
-  uint8_t _targetAngles[ServoPins::Name::COUNT];
-  uint8_t _currentAngles[ServoPins::Name::COUNT];
+  Servo _servos[ServoPin::Name::COUNT];
+  uint8_t _targetAngles[ServoPin::Name::COUNT];
+  uint8_t _currentAngles[ServoPin::Name::COUNT];
   unsigned long _lastStepMs = 0;
   bool _markChangedFlag = false;
 };

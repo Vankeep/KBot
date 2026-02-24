@@ -270,9 +270,9 @@ void stopAll();
 **Методы:**
 ```cpp
 // Установить угол сервопривода (0-180)
-void setAngle(ServoPins::Name name, int angle);
+void setAngle(ServoPin::Name name, int angle);
 // Получить текущий угол сервопривода 
-int getAngle(ServoPins::Name name);
+int getAngle(ServoPin::Name name);
 // Вернуть все сервоприводы в начальное положение (90°) 
 void goHome();
 ```

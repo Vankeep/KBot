@@ -40,7 +40,7 @@ namespace Wheel {
 }
 
 // SERVO CONTROLLER SETTINGS
-namespace ServoPins {
+namespace ServoPin {
   enum Name : uint8_t { SRV1, SRV2, SRV3, SRV4, COUNT };
 
   struct Config {

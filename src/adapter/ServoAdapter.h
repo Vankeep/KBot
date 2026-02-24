@@ -18,7 +18,7 @@ class ServoAdapter : public BaseAdapter{
 public:
     ServoAdapter(const char* objName) : BaseAdapter(objName) {}
     // TODO реализовать метод begin который будет проверять State на предмет инициализации последнего
-    void setAngle(ServoPins::Name name, int angle);
-    int getAngle(ServoPins::Name name);
+    void setAngle(ServoPin::Name name, int angle);
+    int getAngle(ServoPin::Name name);
     void goHome();
 };
