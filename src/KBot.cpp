@@ -28,7 +28,7 @@ void KBot::begin() {
     sensorBTN2.init(1);
     sensorBTN3.init(2);
     sensorBTN4.init(3);
-    oled.init();
+    oled.begin();
 
     ultrasonic.begin();
 

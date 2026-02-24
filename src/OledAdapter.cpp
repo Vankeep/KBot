@@ -12,19 +12,22 @@
 * GNU General Public License for more details.
 */
 #include "OledAdapter.h"
+#include "config.h"
 
 #define SERIAL_Y      140
 #define SERIAL_H      100
 #define LINE_H        22
 #define LINE_PAD      3
 
-void OledAdapter::init() {
+void OledAdapter::begin() {
     // тень под контейнером
     M5.Lcd.fillRoundRect(2, SERIAL_Y + 2, 318, SERIAL_H, 6, 0x1082);
     // основной контейнер
     M5.Lcd.fillRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x18E3);
     // тонкая рамка
     M5.Lcd.drawRoundRect(0, SERIAL_Y, 318, SERIAL_H, 6, 0x3186);
+
+    LOG_INFO("Oled проинициализирован");
 }
 
 void OledAdapter::printStr1(const String& text) { _drawLine(1, text.c_str()); }

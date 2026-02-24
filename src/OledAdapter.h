@@ -16,7 +16,7 @@
 
 class OledAdapter {
 public:
-    void init();
+    void begin();
     void printStr1(const String& text);
     void printStr1(const char* text);
     void printStr1(int value);
