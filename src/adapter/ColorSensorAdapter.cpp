@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 #include "ColorSensorAdapter.h"
-#include "config.h"
 #include <M5Unified.h>
 #include <Wire.h>
 

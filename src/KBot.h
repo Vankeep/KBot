@@ -12,25 +12,25 @@
 * GNU General Public License for more details.
 */
 #pragma once
-#include "config.h"
 #include <M5Unified.h>
 #include <Wire.h>
-#include "SonicAdapter.h"
-#include "WheelsAdapter.h"
-#include "SerialController.h"
-#include "ServoAdapter.h"
-#include "SensorButtonAdapter.h"
-#include "OledAdapter.h"
-#include "KbotBoardLedAdapter.h"
+#include "config.h"
 #include "Timer.h"
-#include "AngleSensorAdapter.h"
-#include "SwitchAdapter.h"
-#include "ToFSensorAdapter.h"
-#include "LineSensorAdapter.h"
-#include "ColorSensorAdapter.h"
-#include "RgbLedAdapter.h"
-#include "BuzzerAdapter.h"
-#include "ImuSensorAdapter.h"
+#include "SerialController.h"
+#include "adapter/SonicAdapter.h"
+#include "adapter/WheelsAdapter.h"
+#include "adapter/ServoAdapter.h"
+#include "adapter/SensorButtonAdapter.h"
+#include "adapter/OledAdapter.h"
+#include "adapter/KbotBoardLedAdapter.h"
+#include "adapter/AngleSensorAdapter.h"
+#include "adapter/SwitchAdapter.h"
+#include "adapter/ToFSensorAdapter.h"
+#include "adapter/LineSensorAdapter.h"
+#include "adapter/ColorSensorAdapter.h"
+#include "adapter/RgbLedAdapter.h"
+#include "adapter/BuzzerAdapter.h"
+#include "adapter/ImuSensorAdapter.h"
 
 class KBot {
 public:
