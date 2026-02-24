@@ -65,7 +65,7 @@ void loop() {
 **Методы:**
 ```cpp
 // Получить расстояние до объекта в миллиметрах
-long getDistanceMm() 
+long getDistanceMm();
 ```
 **Пример использования:** `sonar.ino`
 
@@ -104,9 +104,9 @@ long getDistanceMm()
 **Методы:**
 ```cpp
 //Инициализация датчика на указанном разъеме
-void begin(Pins::Name pin) 
+void begin(Pins::Name pin);
 // Получить угол поворота в градусах (0-180)
-int getAngle() 
+int getAngle();
 ```
 **Пример использования:** `angleSensor.ino`
 
@@ -127,13 +127,13 @@ int getAngle()
 **Методы:**
 ```cpp
 // Инициализация на указанном разъеме
-void begin(Pins::Name pin)
+void begin(Pins::Name pin);
 // Возвращает true один раз при нажатии 
-bool isPressed() 
+bool isPressed();
 // Возвращает true один раз при отпускании
-bool isReleased()
+bool isReleased();
 // Возвращает true пока кнопка удерживается 
-bool isHeld() 
+bool isHeld();
 ```
 **Пример использования:** `button.ino`
 
@@ -152,13 +152,13 @@ bool isHeld()
 **Методы:**
 ```cpp
 // Инициализация датчика на указанном разъеме
-void begin(Pins::Name pin)
+void begin(Pins::Name pin);
 // Возвращает true, если датчик видит линию 
-bool isOnLine() 
+bool isOnLine();
 // Возвращает true один раз при обнаружении линии
-bool isDetected()
+bool isDetected();
 // Возвращает true один раз при потере линии 
-bool isLost() 
+bool isLost();
 ```
 
 **Пример использования:** `lineSensor.ino`
@@ -178,19 +178,19 @@ bool isLost()
 **Методы:**
 ```cpp
 // Калибровка по белому цвету
-void calibrateWhite() 
+void calibrateWhite();
 // Получить значения RGB цвета
-void getRGB(int &r, int &g, int &b) 
+void getRGB(int &r, int &g, int &b);
 // Проверить, красный ли это цвет
-bool isRed(int r, int g, int b) 
+bool isRed(int r, int g, int b);
 // Проверить, зеленый ли это цвет
-bool isGreen(int r, int g, int b) 
+bool isGreen(int r, int g, int b);
 // Проверить, синий ли это цвет
-bool isBlue(int r, int g, int b) 
+bool isBlue(int r, int g, int b);
 // Проверить, белый ли это цвет
-bool isWhite(int r, int g, int b) 
+bool isWhite(int r, int g, int b);
 // Проверить, черный ли это цвет
-bool isBlack(int r, int g, int b) 
+bool isBlack(int r, int g, int b);
 ```
 
 **Пример использования:** `colorSensor.ino`
@@ -210,21 +210,21 @@ bool isBlack(int r, int g, int b)
 **Методы:**
 ```cpp
 // Получить угол наклона (pitch) в градусах
-int getPitch() 
+int getPitch();
 // Получить угол крена (roll) в градусах
-int getRoll() 
+int getRoll();
 // Получить ускорение по оси X
-int getAccelX() 
+int getAccelX();
 // Получить ускорение по оси Y
-int getAccelY() 
+int getAccelY();
 // Получить ускорение по оси Z
-int getAccelZ() 
+int getAccelZ();
 // Получить угловую скорость по оси X
-int getGyroX() 
+int getGyroX();
 // Получить угловую скорость по оси Y
-int getGyroY() 
+int getGyroY();
 // Получить угловую скорость по оси Z
-int getGyroZ() 
+int getGyroZ();
 ```
 
 **Пример использования:** `imu.ino`
@@ -244,13 +244,13 @@ int getGyroZ()
 **Методы:**
 ```cpp
 // Управление левыми и правыми моторами (-200...200)
-void drive(int left, int right) 
+void drive(int left, int right);
 // Управление отдельным мотором (-200...200)
-void drive(Wheel::Name motor, int speed)
+void drive(Wheel::Name motor, int speed);
 // Остановить один мотор 
-void stop(Wheel::Name motor)
+void stop(Wheel::Name motor);
 // Остановить все моторы
-void stopAll() 
+void stopAll();
 ```
 
 **Пример использования:** `wheel.ino`
@@ -270,11 +270,11 @@ void stopAll()
 **Методы:**
 ```cpp
 // Установить угол сервопривода (0-180)
-void setAngle(Servos::Name servo, int angle)
+void setAngle(Servos::Name servo, int angle);
 // Получить текущий угол сервопривода 
-int getAngle(Servos::Name servo)
+int getAngle(Servos::Name servo);
 // Вернуть все сервоприводы в начальное положение (90°) 
-void goHome() 
+void goHome();
 ```
 
 **Пример использования:** `servo.ino`
@@ -294,15 +294,15 @@ void goHome()
 **Методы:**
 ```cpp
 // Установить RGB цвет (0-255 для каждого цвета)
-void color(Led::Name led, int red, int green, int blue)
+void color(Led::Name led, int red, int green, int blue);
 // Установить цвет из готовых 
-void color(Led::Name led, Led::Color color)
+void color(Led::Name led, Led::Color color);
 // Установить цвет всех светодиодов 
-void colorAll(Led::Color color)
+void colorAll(Led::Color color);
 // Выключить один светодиод 
-void off(Led::Name led)
+void off(Led::Name led);
 // Выключить все светодиоды 
-void offAll() 
+void offAll();
 ```
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
@@ -324,21 +324,21 @@ void offAll()
 **Методы:**
 ```cpp
 // Инициализация ленты (указать пин и количество светодиодов)
-void begin(Pins::Name pin, int numLeds = 3) 
+void begin(Pins::Name pin, int numLeds = 3);
 // Установить цвет одного светодиода (0-255 для каждого цвета)
-void setColor(int pixel, int r, int g, int b) 
+void setColor(int pixel, int r, int g, int b);
 // Установить готовый цвет
-void setColor(int pixel, Color::Name color) 
+void setColor(int pixel, Color::Name color);
 // Установить цвет всех светодиодов
-void setColorAll(int r, int g, int b) 
+void setColorAll(int r, int g, int b);
 // Установить готовый цвет для всех
-void setColorAll(Color::Name color)
+void setColorAll(Color::Name color);
 // Установить яркость (0-255)
-void setBrightness(int brightness) 
+void setBrightness(int brightness);
 // Выключить все светодиоды
-void clear() 
+void clear();
 // Получить количество светодиодов
-int getNumLeds() 
+int getNumLeds();
 ```
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
@@ -360,11 +360,11 @@ int getNumLeds()
 **Методы:**
 ```cpp
 // Инициализация зуммера на указанном разъеме
-void begin(Pins::Name pin)
+void begin(Pins::Name pin);
 // Воспроизвести тон с указанной частотой (в Гц) и длительностью (в мс). Если duration = 0, тон будет звучать постоянно
-void tone(int frequency, unsigned long duration = 0) 
+void tone(int frequency, unsigned long duration = 0);
 // Остановить воспроизведение звука
-void noTone()
+void noTone();
 ```
 
 **Пример использования:** `buzzer.ino`
@@ -382,15 +382,15 @@ void noTone()
 **Методы:**
 ```cpp
 // Вывод данных в строку 1
-void printStr1(...)
+void printStr1(...);
 // Вывод данных в строку 2
-void printStr2(...)
+void printStr2(...);
 // Вывод данных в строку 3
-void printStr3(...)
+void printStr3(...);
 // Вывод данных в строку 4
-void printStr4(...)
+void printStr4(...);
 // Очистить весь дисплей
-void clear()
+void clear();
 ```
 
 **Что можно выводить:**
@@ -398,15 +398,15 @@ void clear()
 Все функции `printStr1-4` умеют выводить:
 ```cpp
 // Текст
-bot.oled.printStr1("Привет")
+bot.oled.printStr1("Привет");
 // Целые числа
-bot.oled.printStr2(123)
+bot.oled.printStr2(123);
 // Большие числа
-bot.oled.printStr3(987654L)
+bot.oled.printStr3(987654L);
 // Дробные числа
-bot.oled.printStr4(3.14)
+bot.oled.printStr4(3.14);
 // Дробные числа указанием точности
-bot.oled.printStr4(3.14159, 3)
+bot.oled.printStr4(3.14159, 3);
 ```
 
 **Пример:** TODO добавить пример
@@ -424,9 +424,9 @@ bot.oled.printStr4(3.14159, 3)
 **Методы:**
 ```cpp
 // Установить текст на кнопке
-void setText(const char* text) 
+void setText(const char* text);
 // Проверить, нажата ли кнопка (возвращает true один раз при нажатии)
-bool isClick() 
+bool isClick();
 ```
 
 **Пример использования:** `sensorButton.ino`
@@ -444,19 +444,19 @@ bool isClick()
 **Методы:**
 ```cpp
 // Запустить таймер на один раз (время в миллисекундах)
-void startOnce(uint32_t ms)
+void startOnce(uint32_t ms);
 // Запустить повторяющийся таймер (время в миллисекундах)
-void startEvery(uint32_t ms)
+void startEvery(uint32_t ms);
 // Остановить таймер
-void stop()
+void stop();
 // Сбросить таймер
-void reset()
+void reset();
 // Проверить, сработал ли таймер (true один раз при срабатывании)
-bool isReady()
+bool isReady();
 // Проверить, работает ли таймер
-bool isActive()
+bool isActive();
 // Проверить, завершился ли таймер
-bool isDone()
+bool isDone();
 ```
 
 **Пример использования:** `timer.ino`
