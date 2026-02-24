@@ -3,6 +3,10 @@
 void LineSensorAdapter::begin(Pins::Name name) {
     if (name == Pins::Name::XP8  || name == Pins::Name::XP10 || 
         name == Pins::Name::XP11 || name == Pins::Name::XP13) {
+        if(_isBegin == true) {
+            LOG_ERR("Line Sensor уже проинициализирован. Повторная инициализация игнорируется");
+            return;
+        }
         _pin = Pins::leftPin(name);
         pinMode(_pin, INPUT);
 
@@ -15,6 +19,10 @@ void LineSensorAdapter::begin(Pins::Name name) {
         _candidate = false;
         _stableCount = 0;
         _isBegin = true;
+        LOG_INFO("Line Sensor проинициализирован");
+    } else {
+        LOG_ERR_VAL("bot.lineSensor.begin. Неподдерживаемый пин: ", (int)name);
+        LOG_ERR("bot.lineSensor.begin Используйте XP8, XP10, XP11 или XP13");
     }
 }
 
@@ -101,8 +109,8 @@ int LineSensorAdapter::_readMedian() {
 }
 
 bool LineSensorAdapter::_isBeginAdapter() {
-    if (_isBegin == false) {
-        Serial.println("ERR: bot.lineSensor LineSensor не инициализирован");
+    if(_isBegin == false) {
+        LOG_ERR("Line Sensor не было вызова begin. Класс не проинициализирован");
     }
     return _isBegin;
 }
