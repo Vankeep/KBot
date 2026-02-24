@@ -13,7 +13,7 @@
 */
 #pragma once
 #include "config.h"
-#include <SerialTransfer.h>
+#include "lib/SerialTransfer/SerialTransfer.h"
 
 class SerialController{
 public:

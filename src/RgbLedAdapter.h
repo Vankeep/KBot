@@ -13,7 +13,7 @@
 */
 #pragma once
 #include "BaseAdapter.h"
-#include <Adafruit_NeoPixel.h>
+#include "lib/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
 
 class RgbLedAdapter : public BaseAdapter{
 public:
