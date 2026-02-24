@@ -1,10 +1,15 @@
 #include "LineSensorAdapter.h"
 
+LineSensorAdapter::LineSensorAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
 void LineSensorAdapter::begin(Pins::Name name) {
     if (name == Pins::Name::XP8  || name == Pins::Name::XP10 || 
         name == Pins::Name::XP11 || name == Pins::Name::XP13) {
         if(_isBegin == true) {
-            LOG_ERR("Line Sensor уже проинициализирован. Повторная инициализация игнорируется");
+            LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
         _pin = Pins::leftPin(name);
@@ -19,10 +24,9 @@ void LineSensorAdapter::begin(Pins::Name name) {
         _candidate = false;
         _stableCount = 0;
         _isBegin = true;
-        LOG_INFO("Line Sensor проинициализирован");
+        LOG_INFO_F("%s проинициализирован", _objName);
     } else {
-        LOG_ERR_VAL("bot.lineSensor.begin. Неподдерживаемый пин: ", (int)name);
-        LOG_ERR("bot.lineSensor.begin Используйте XP8, XP10, XP11 или XP13");
+        LOG_ERR_F("%s Неподдерживаемый пин: %d Используйте XP8, XP10, XP11 или XP13", _objName, (int)name);
     }
 }
 
@@ -110,7 +114,7 @@ int LineSensorAdapter::_readMedian() {
 
 bool LineSensorAdapter::_isBeginAdapter() const{
     if(_isBegin == false) {
-        LOG_ERR("Line Sensor не было вызова begin. Класс не проинициализирован");
+        LOG_ERR_F("%s не было вызова begin. Класс не проинициализирован", _objName);
     }
     return _isBegin;
 }

@@ -14,6 +14,28 @@
 #include "KBot.h"
 #include "state.h"
 
+KBot::KBot()
+    : lineSensor1("lineSensor1")
+    , lineSensor2("lineSensor2")
+    , lineSensor3("lineSensor3")
+    , lineSensor4("lineSensor4") 
+    , sensorBTN1("sensorBTN1")
+    , sensorBTN2("sensorBTN2")
+    , sensorBTN3("sensorBTN3")
+    , sensorBTN4("sensorBTN4")
+    , mboardLed("mboardLed")
+    , oled("oled")
+    , rgbLed("rgbLed")
+    , imu("imu")
+    , colorSensor("colorSensor")
+    , buzzer("buzzer")
+    , angleSensor1("angleSensor1")
+    , angleSensor2("angleSensor2")
+    , angleSensor3("angleSensor3")
+    , angleSensor4("angleSensor4")
+    , servo("servo"){}
+
+
 void KBot::begin() {
     Wire.begin();
     _serialController.init();
@@ -24,10 +46,10 @@ void KBot::begin() {
     delay(2500);
 
     M5.Lcd.fillScreen(TFT_BLACK);
-    sensorBTN1.begin(0, "sensorBTN1");
-    sensorBTN2.begin(1, "sensorBTN2");
-    sensorBTN3.begin(2, "sensorBTN3");
-    sensorBTN4.begin(3, "sensorBTN4");
+    sensorBTN1.begin(0);
+    sensorBTN2.begin(1);
+    sensorBTN3.begin(2);
+    sensorBTN4.begin(3);
     oled.begin();
 
     ultrasonic.begin();
@@ -39,19 +61,9 @@ void KBot::begin() {
 
     tof.begin();
 
-    if(colorSensor.begin()){
-        LOG_INFO("ColorSensor подключен и проинициализирован");
-    } else {
-        LOG_INFO("ColorSensor не обнаружен на шине I2C");
-    }
-        
-    if(imu.begin()){
-        LOG_INFO("IMU Sensor подключен и проинициализирован");
-    } else {
-        LOG_INFO("IMU Sensor не обнаружен на шине I2C");
-    }
-
+    colorSensor.begin();
     
+    imu.begin();
     
     State::init();
 }

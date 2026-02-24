@@ -16,11 +16,12 @@
 
 class AngleSensorAdapter {
 public:
-
+    AngleSensorAdapter(const char* objName);
     void begin(Pins::Name name);
     int getAngle();
 
 private:
+    char _objName[32];
     bool _isBegin = false;
     uint8_t _pin;
     int _lastAngle = 0;

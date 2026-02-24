@@ -16,11 +16,13 @@
 
 class SensorButtonAdapter {
 public:
-    void begin(uint8_t slot, const char* nameObj);
+    SensorButtonAdapter(const char* objName);
+    void begin(uint8_t slot);
     void setText(const char* text);
     bool isClick();
 
 private:
+    char _objName[32];
     int16_t _x, _y, _w, _h;
     char _text[20];
     bool _lastState = false;

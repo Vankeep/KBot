@@ -17,7 +17,8 @@
 
 class ImuSensorAdapter {
 public:
-    bool begin(uint8_t address = 0x68);
+    ImuSensorAdapter(const char* objName);
+    void begin(uint8_t address = 0x68);
     void tick();
 
     int getPitch();
@@ -30,6 +31,7 @@ public:
     int getGyroZ();
 
 private:
+    char _objName[32];
     uint8_t _address = 0x68;
     bool _isBegin = false;
 

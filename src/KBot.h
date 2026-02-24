@@ -34,6 +34,7 @@
 
 class KBot {
 public:
+    KBot();
     SonicAdapter ultrasonic;
     WheelsAdapter wheel;
     ServoAdapter servo;

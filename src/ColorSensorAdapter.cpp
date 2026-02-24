@@ -30,7 +30,12 @@
 #define TCS34725_PON        0x01
 #define TCS34725_AEN        0x02
 
-bool ColorSensorAdapter::begin(uint8_t address) {
+ColorSensorAdapter::ColorSensorAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
+void ColorSensorAdapter::begin(uint8_t address) {
     _address = address;
     _wr = _wg = _wb = 1;
     _calibrated = false;
@@ -38,7 +43,10 @@ bool ColorSensorAdapter::begin(uint8_t address) {
 
     // Check I2C ACK
     Wire.beginTransmission(_address);
-    if (Wire.endTransmission() != 0) return _isBegin;
+    if (Wire.endTransmission() != 0) {
+        LOG_INFO_F("%s не обнаружен на шине I2C", _objName);
+        return;
+    }
 
     // Verify chip ID (TCS34725 returns 0x44 or 0x4D)
     Wire.beginTransmission(_address);
@@ -46,7 +54,10 @@ bool ColorSensorAdapter::begin(uint8_t address) {
     Wire.endTransmission(false);
     Wire.requestFrom(_address, (uint8_t)1);
     uint8_t id = Wire.read();
-    if (id != 0x44 && id != 0x4D) return _isBegin;
+    if (id != 0x44 && id != 0x4D) {
+        LOG_INFO_F("%s не обнаружен на шине I2C", _objName);
+        return;
+    }
 
     _isBegin = true;
 
@@ -62,7 +73,7 @@ bool ColorSensorAdapter::begin(uint8_t address) {
     _writeByteAt(TCS34725_CONTROL, 0x01);
 
     delay(200);
-    return _isBegin;
+    LOG_INFO_F("%s подключен и проинициализирован", _objName);
 }
 
 void ColorSensorAdapter::calibrateWhite() {
@@ -154,7 +165,7 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
 
 bool ColorSensorAdapter::_isBeginAdapter() const {
     if (_isBegin == false) {
-        LOG_ERR("Color Sensor не обнаружен на шине I2C");
+        LOG_ERR_F("%s не обнаружен на шине I2C", _objName);
     }
     return _isBegin;
 }

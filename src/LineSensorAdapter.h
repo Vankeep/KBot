@@ -17,6 +17,7 @@
 
 class LineSensorAdapter {
 public:
+    LineSensorAdapter(const char* objName);
     void begin(Pins::Name name);
     void tick();
     bool isOnLine();
@@ -24,6 +25,7 @@ public:
     bool isLost();
 
 private:
+    char _objName[32];
     // Гистерезис
     static constexpr int THRESHOLD_LOW  = 1800;
     static constexpr int THRESHOLD_HIGH = 2300;

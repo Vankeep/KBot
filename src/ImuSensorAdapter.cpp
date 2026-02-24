@@ -15,14 +15,20 @@
 #include <Wire.h>
 #include <math.h>
 
-bool ImuSensorAdapter::begin(uint8_t address) {
+ImuSensorAdapter::ImuSensorAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
+void ImuSensorAdapter::begin(uint8_t address) {
     _address = address;
 
     uint8_t whoAmI = _readReg(REG_WHO_AM_I);
 
     if (whoAmI != 0x19) {
         _isBegin = false;
-        return _isBegin;
+        LOG_INFO_F("%s не обнаружен на шине I2C", _objName);
+        return;
     }
 
     // Сброс датчика
@@ -55,7 +61,7 @@ bool ImuSensorAdapter::begin(uint8_t address) {
     delay(50);
 
     _isBegin = true;
-    return _isBegin;
+    LOG_INFO_F("%s подключен и проинициализирован", _objName);
 }
 
 void ImuSensorAdapter::tick() {
@@ -133,7 +139,7 @@ void ImuSensorAdapter::_readBlock(uint8_t reg, uint8_t count, uint8_t* buf) {
 
 bool ImuSensorAdapter::_isBeginAdapter() const {
     if (_isBegin == false) {
-        LOG_ERR("IMU Sensor не обнаружен на шине I2C");
+        LOG_ERR_F("%s не обнаружен на шине I2C", _objName);
     }
     return _isBegin;
 }

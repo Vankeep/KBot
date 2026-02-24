@@ -16,6 +16,7 @@
 
 class OledAdapter {
 public:
+    OledAdapter(const char* objName);
     void begin();
     void printStr1(const String& text);
     void printStr1(const char* text);
@@ -48,5 +49,6 @@ public:
     void clear();
 
 private:
+    char _objName[32];
     void _drawLine(uint8_t line, const char* text);
 };

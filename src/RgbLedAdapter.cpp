@@ -14,13 +14,18 @@
 #include "RgbLedAdapter.h"
 #include <M5Unified.h>
 
+RgbLedAdapter::RgbLedAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
 void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
     if(numLeds < 1) {
-        LOG_ERR("bot.rgbLed.begin() Аргумент numLeds не может быть менее 1");
+        LOG_ERR_F("%s.begin() Аргумент numLeds не может быть менее 1", _objName);
         return;
     };
     if(_isBegin == true) {
-        LOG_ERR("rgbLed уже проинициализирован. Повторная инициализация игнорируется");
+        LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
 
@@ -35,7 +40,7 @@ void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
 
     _isBegin = true;
 
-    LOG_INFO("rgbLed проинициализирован");
+    LOG_INFO_F("%s проинициализирован", _objName);
 }
 
 void RgbLedAdapter::tick() {
@@ -49,7 +54,7 @@ void RgbLedAdapter::setColor(int pixel, int r, int g, int b) {
     if(_isBeginAdapter() == false) return;
     if(_isValideRgb(r, g, b) == false) return;
     if(pixel < 1){
-        LOG_ERR("bot.rgbLed.setColor() Аргумент pixel не может быть менее 1");
+        LOG_ERR_F("%s.setColor() Аргумент pixel не может быть менее 1", _objName);
         return;
     }
 
@@ -61,7 +66,7 @@ void RgbLedAdapter::setColor(int pixel, int r, int g, int b) {
 void RgbLedAdapter::setColor(int pixel, Led::Color color) {
     if(_isBeginAdapter() == false) return;
     if(pixel < 1){
-        LOG_ERR("bot.rgbLed.setColor() Аргумент pixel не может быть менее 1");
+        LOG_ERR_F("%s.setColor() Аргумент pixel не может быть менее 1", _objName);
         return;
     }
 
@@ -93,7 +98,7 @@ void RgbLedAdapter::setColorAll(Led::Color color) {
 void RgbLedAdapter::setBrightness(int brightness) {
     if(_isBeginAdapter() == false) return;
     if(brightness < 0 || brightness > 255){
-        LOG_ERR("bot.rgbLed.setBrightness() Аргумент brightness не может быть менее 0 или более 255");
+        LOG_ERR_F("%s.setBrightness() Аргумент brightness не может быть менее 0 или более 255", _objName);
         return;
     }
     
@@ -116,14 +121,14 @@ bool RgbLedAdapter::_isValideRgb(int r, int g, int b) const {
     if(r >= 0 || g >= 0 || b >= 0 || r <= 255 || g <= 255 || b <= 255){
         return true;
     } else {
-        LOG_ERR("bot.rgbLed. Цвет не может быть менее 0 или более 255");
+        LOG_ERR_F("%s Цвет не может быть менее 0 или более 255", _objName);
         return false;
     }
 }
 
 bool RgbLedAdapter::_isBeginAdapter() const {
     if(_isBegin == false) {
-        LOG_ERR("RgbLed не было вызова begin. Класс не проинициализирован");
+        LOG_ERR_F("%s не было вызова begin(). Класс не проинициализирован", _objName);
     }
     return _isBegin;
 }

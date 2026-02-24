@@ -16,7 +16,10 @@
 
 class ServoAdapter {
 public:
+    ServoAdapter(const char* objName);
     void setAngle(Servos::Name name, int angle);
     int getAngle(Servos::Name name);
     void goHome();
+private:
+    char _objName[32];
 };

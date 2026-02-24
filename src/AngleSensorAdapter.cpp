@@ -15,11 +15,16 @@
 #include <M5Unified.h>
 #include <math.h>
 
+AngleSensorAdapter::AngleSensorAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
 void AngleSensorAdapter::begin(Pins::Name name) {
     if(name == Pins::Name::XP9 || name == Pins::Name::XP10 || 
        name == Pins::Name::XP11 || name == Pins::Name::XP8){
         if(_isBegin == true) {
-            LOG_ERR("Angle Sensor уже проинициализирован. Повторная инициализация игнорируется");
+            LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
             return;
         }
         _isBegin = true;
@@ -28,10 +33,9 @@ void AngleSensorAdapter::begin(Pins::Name name) {
         _lastAngle = 90;
         _candidateAngle = -1;
         _candidateTime = 0;
-        LOG_INFO("Angle Sensor проинициализирован");
+        LOG_INFO_F("%s проинициализирован", _objName);
     } else {
-        LOG_ERR_VAL("bot.angleSensor.begin. Неподдерживаемый пин: ", (int)name);
-        LOG_ERR("bot.angleSensor.begin Используйте XP8, XP9, XP10 или XP11");
+        LOG_ERR_F("%s Неподдерживаемый пин: %d Используйте XP8, XP9, XP10 или XP11", _objName, (int)name);
     }
 }
 
@@ -65,7 +69,7 @@ int AngleSensorAdapter::getAngle() {
 
 bool AngleSensorAdapter::_isBeginAdapter() const {
     if(_isBegin == false) {
-        LOG_ERR("Angle Sensor не было вызова begin. Класс не проинициализирован");
+        LOG_ERR_F("%s не было вызова begin() Класс не проинициализирован", _objName);
         return false;
     }
     return true;

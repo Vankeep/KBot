@@ -14,6 +14,11 @@
 #include "MboardLedAdapter.h"
 #include "state.h"
 
+MboardLedAdapter::MboardLedAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
 void MboardLedAdapter::color(Led::Name name, int red, int green, int blue){
     if(!_isValide(red, green, blue)) return;
     State::setLedColor(name, _getColorUint(red, green, blue));
@@ -43,7 +48,7 @@ bool MboardLedAdapter::_isValide(int red, int green, int blue){
     if((red >= 0  && red <= 255) && (green >=0 && green <=255) && (blue >=0 && blue <=255)){
         return true;
     } else {
-        LOG_ERR("bot.mboardLed В функцию передано значение r или g или b либо менее 0 либо более 255");
+        LOG_ERR_F("%s В функцию передано значение r или g или b либо менее 0 либо более 255", _objName);
         return false;
     }
 }

@@ -14,9 +14,14 @@
 #include "BuzzerAdapter.h"
 #include <M5Unified.h>
 
+BuzzerAdapter::BuzzerAdapter(const char* objName) {
+    strncpy(_objName, objName, sizeof(_objName) - 1);
+    _objName[sizeof(_objName) - 1] = '\0';
+}
+
 void BuzzerAdapter::begin(Pins::Name name) {
     if(_isBegin == true) {
-        LOG_ERR("Buzzer уже проинициализирован. Повторная инициализация игнорируется");
+        LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
 
@@ -28,7 +33,7 @@ void BuzzerAdapter::begin(Pins::Name name) {
     ledcWrite(_ledChannel, 0);
 
     _isBegin = true;
-    LOG_INFO("Buzzer проинициализирован");
+    LOG_INFO_F("%s проинициализирован", _objName);
 }
 
 void BuzzerAdapter::tick() {
@@ -44,7 +49,10 @@ void BuzzerAdapter::tick() {
 
 void BuzzerAdapter::tone(int frequency, unsigned long duration) {
     if(_isBeginAdapter() == false) return;
-    if(_isValidFrequency(frequency) == false) return;
+    if(frequency < 20 && frequency > 20000){
+        LOG_ERR_F("%s.tone() Аргумент frequency не может быть менее 20 или более 20000", _objName);
+        return;
+    }
 
     ledcSetup(_ledChannel, frequency, 10);
     ledcAttachPin(_pin, _ledChannel);
@@ -67,18 +75,9 @@ void BuzzerAdapter::noTone() {
     _toneEndTime = 0;
 }
 
-bool BuzzerAdapter::_isValidFrequency(int frequency) const {
-    if(frequency >= 20 && frequency <= 20000) {
-        return true;
-    } else {
-        LOG_ERR("bot.buzzer.tone. Аргумент frequency не может быть менее 20 или более 20000");
-        return false;
-    }
-}
-
 bool BuzzerAdapter::_isBeginAdapter() const {
     if(_isBegin == false) {
-        LOG_ERR("Buzzer не было вызова begin. Класс не проинициализирован");
+        LOG_ERR_F("%s не было вызова begin() Класс не проинициализирован", _objName);
     }
     return _isBegin;
 }

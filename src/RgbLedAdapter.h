@@ -17,7 +17,7 @@
 
 class RgbLedAdapter {
 public:
-
+    RgbLedAdapter(const char* objName);
     void begin(Pins::Name name, int numLeds = 3);
     void tick();
     void setColor(int pixel, int r, int g, int b);
@@ -29,6 +29,7 @@ public:
     int getNumLeds() const;
 
 private:
+    char _objName[32];
     bool _isBegin = false;
     bool _dirty = false;
     int _numLeds = 0;

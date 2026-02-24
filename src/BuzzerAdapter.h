@@ -17,19 +17,19 @@
 
 class BuzzerAdapter {
 public:
-
+    BuzzerAdapter(const char* objName);
     void begin(Pins::Name name);
     void tick();
     void tone(int frequency, unsigned long duration = 0);
     void noTone();
 
 private:
+    char _objName[32];
     bool _isBegin = false;
     uint8_t _pin = 0;
     int _ledChannel = 0;
     bool _playing = false;
     unsigned long _toneEndTime = 0;
 
-    bool _isValidFrequency(int frequency) const;
     bool _isBeginAdapter() const;
 };

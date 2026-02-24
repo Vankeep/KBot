@@ -16,7 +16,8 @@
 
 class ColorSensorAdapter {
 public:
-    bool begin(uint8_t address = 0x29);
+    ColorSensorAdapter(const char* objName);
+    void begin(uint8_t address = 0x29);
     void calibrateWhite();
     void getRGB(int &r, int &g, int &b);
 
@@ -27,6 +28,7 @@ public:
     bool isBlack(int r, int g, int b);
 
 private:
+    char _objName[32];
     uint8_t _address;
     bool _calibrated;
     bool _isBegin = false;
