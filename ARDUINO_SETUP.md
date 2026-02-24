@@ -7,22 +7,23 @@
 
 ## Добавление платы M5Stack
 
-1. Откройте Arduino IDE
-2. Перейдите в `File` → `Preferences`
+Откройте Arduino IDE
+
+Перейдите в `File` → `Preferences`
 
 ![Preferences](img/img1.png)
 
-3. В поле `Additional Boards Manager URLs` вставьте ссылку:
+В поле `Additional Boards Manager URLs` вставьте ссылку:
    ```
    https://static-cdn.m5stack.com/resource/arduino/package_m5stack_index.json
    ```
 
 ![Preferences](img/img2.png)
 
-4. Откройте `Tools` → `Board` → `Boards Manager`
-5. Найдите и установите:
-
-   - `M5Stack` версия `2.1.4`
+1. Слева нажмите на "Boards Manager"
+2. В строке поиска введите `M5Stack`
+3. Выберите версию `2.1.4`
+4. Нажмите **INSTALL**
 
 ![Preferences](img/img4.png)
    
