@@ -25,6 +25,18 @@
    - `esp32` версия `2.0.17`
 
    ![Preferences](img/img4.png)
+   
+## Установка библиотеки M5
+1. Слева нажать на "Library Manager"
+2. В строке поиска ввести `M5Unified`
+3. Выбрать версию `0.2.13`
+4. Нажать **INSTALL**
+
+![Preferences](img/img5.png)
+
+В появившемся окне нажать **INSTALL ALL**
+
+![Preferences](img/img6.png)
 
 ## Установка библиотеки KBot
 
