@@ -24,10 +24,10 @@ public:
       setWheelSpeed(name, Wheel::initSpeed(name));
     }
 
-    for(uint8_t i = 0; i < Servos::Name::COUNT; i++){
-      Servos::Name name = Servos::getName(i);
-      _statePacket.servoAngle[name] = Servos::initAngle(name);
-      _nextAngle[name] = Servos::initAngle(name);
+    for(uint8_t i = 0; i < ServoPins::Name::COUNT; i++){
+      ServoPins::Name name = ServoPins::getName(i);
+      _statePacket.servoAngle[name] = ServoPins::initAngle(name);
+      _nextAngle[name] = ServoPins::initAngle(name);
     }
 
     for(uint8_t i = 0; i < Led::Name::COUNT; i++){
@@ -41,13 +41,13 @@ public:
   static void setWheelSpeed(Wheel::Name n, int val) { _set(&_statePacket.wheelSpeed[n], val); }
   static int getWheelSpeed(Wheel::Name n) { return _statePacket.wheelSpeed[n]; }
 
-  static void setServoAngle(Servos::Name n, uint8_t val) { 
+  static void setServoAngle(ServoPins::Name n, uint8_t val) { 
     if(val != _nextAngle[n]){
       _nextAngle[n] = val;
       _markStateChangedFlag = true;
     }
   }
-  static uint8_t getServoAngle(Servos::Name n) { return _statePacket.servoAngle[n]; }
+  static uint8_t getServoAngle(ServoPins::Name n) { return _statePacket.servoAngle[n]; }
 
   static void setLedColor(Led::Name n, uint32_t color){ _set(&_statePacket.ledColor[n], color);}
   static uint32_t getLedColor(Led::Name n){ return _statePacket.ledColor[n]; }
@@ -88,13 +88,13 @@ public:
     Serial.println(State::getWheelSpeed(Wheel::Name::XP15B));
     Serial.println("Сервоприводы:");
     Serial.print("SRV1=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV1));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV1));
     Serial.print(" | SRV2=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV2));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV2));
     Serial.print(" | SRV3=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV3));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV3));
     Serial.print(" | SRV4=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV4));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV4));
     Serial.println("Светодиоды:");
     for(uint8_t i = 0; i < 4; i++){
       Serial.print("  ledColor ");
@@ -108,7 +108,7 @@ public:
 private:
   static StatePacket _statePacket;
   static bool _markStateChangedFlag;
-  static uint8_t _nextAngle[Servos::Name::COUNT];
+  static uint8_t _nextAngle[ServoPins::Name::COUNT];
 
   template<typename T>
   static void _set(T* field, T newValue) {
@@ -122,4 +122,4 @@ private:
 
 inline StatePacket State::_statePacket;
 inline bool State::_markStateChangedFlag = false;
-inline uint8_t State::_nextAngle[Servos::Name::COUNT];
+inline uint8_t State::_nextAngle[ServoPins::Name::COUNT];

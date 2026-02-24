@@ -94,15 +94,15 @@ void SerialController::sendState(){
     Serial.println(State::getWheelSpeed(Wheel::Name::XP15B));
     Serial.println("Сервоприводы:");
     Serial.print("SRV1=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV1));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV1));
     Serial.print(" | SRV2=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV2));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV2));
     Serial.print(" | SRV3=");
-    Serial.print(State::getServoAngle(Servos::Name::SRV3));
+    Serial.print(State::getServoAngle(ServoPins::Name::SRV3));
     Serial.print(" | SRV4=");
-    Serial.println(State::getServoAngle(Servos::Name::SRV4));
+    Serial.println(State::getServoAngle(ServoPins::Name::SRV4));
     Serial.println("Светодиоды:");
-    for(uint8_t i = 0; i < Servos::Name::COUNT; i++){
+    for(uint8_t i = 0; i < ServoPins::Name::COUNT; i++){
       Serial.print("  ledColor ");
       Serial.print(i);
       Serial.print(": 0x");

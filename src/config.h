@@ -42,7 +42,7 @@ namespace Wheel {
   constexpr Name getName(uint8_t i) { return static_cast<Name>(i); }
 }
 // SERVO CONTROLLER SETTINGS
-namespace Servos {
+namespace ServoPins {
   enum Name : uint8_t { SRV1, SRV2, SRV3, SRV4, COUNT };
 
   struct Config {
