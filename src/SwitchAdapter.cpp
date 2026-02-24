@@ -17,6 +17,10 @@
 void SwitchAdapter::begin(Pins::Name name, bool pullUp) {
     if(name == Pins::Name::XP8 || name == Pins::Name::XP9 ||
        name == Pins::Name::XP10 || name == Pins::Name::XP11 || name == Pins::Name::XP13){
+        if(_isBegin == true) {
+            LOG_INFO_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
+            return;
+        }
         _isBegin = true;
         _pin = Pins::leftPin(name);
         _pullUp = pullUp;
@@ -26,6 +30,9 @@ void SwitchAdapter::begin(Pins::Name name, bool pullUp) {
         _debouncing = false;
         _pressFlag = false;
         _releaseFlag = false;
+        LOG_INFO_F("%s проинициализирован", _objName);
+    } else {
+        LOG_ERR_F("%s Неподдерживаемый пин: %d Используйте XP8, XP9, XP10, XP11 или XP13", _objName, (int)name);
     }
 }
 
@@ -58,7 +65,7 @@ void SwitchAdapter::tick() {
 }
 
 bool SwitchAdapter::isPressed() {
-    if(_isBegin == false) return false;
+    if(_isBeginAdapter() == false) return false;
     if (_pressFlag) {
         _pressFlag = false;
         return true;
@@ -67,7 +74,7 @@ bool SwitchAdapter::isPressed() {
 }
 
 bool SwitchAdapter::isReleased() {
-    if(_isBegin == false) return false;
+    if(_isBeginAdapter() == false) return false;
     if (_releaseFlag) {
         _releaseFlag = false;
         return true;
@@ -76,6 +83,6 @@ bool SwitchAdapter::isReleased() {
 }
 
 bool SwitchAdapter::isHeld() {
-    if(_isBegin == false) return false;
+    if(_isBeginAdapter() == false) return false;
     return _state;
 }

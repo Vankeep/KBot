@@ -12,12 +12,12 @@
 * GNU General Public License for more details.
 */
 #pragma once
-#include "config.h"
+#include "BaseAdapter.h"
 #include <stdint.h>
 
-class ImuSensorAdapter {
+class ImuSensorAdapter : public BaseAdapter{
 public:
-    ImuSensorAdapter(const char* objName);
+    ImuSensorAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(uint8_t address = 0x68);
     void tick();
 
@@ -31,9 +31,7 @@ public:
     int getGyroZ();
 
 private:
-    char _objName[32];
     uint8_t _address = 0x68;
-    bool _isBegin = false;
 
     int _pitch = 0;
     int _roll  = 0;
@@ -62,5 +60,4 @@ private:
     void _writeReg(uint8_t reg, uint8_t data);
     uint8_t _readReg(uint8_t reg);
     void _readBlock(uint8_t reg, uint8_t count, uint8_t* buf);
-    bool _isBeginAdapter() const;
 };

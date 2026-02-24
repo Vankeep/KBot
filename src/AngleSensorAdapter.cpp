@@ -15,11 +15,6 @@
 #include <M5Unified.h>
 #include <math.h>
 
-AngleSensorAdapter::AngleSensorAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void AngleSensorAdapter::begin(Pins::Name name) {
     if(name == Pins::Name::XP9 || name == Pins::Name::XP10 || 
        name == Pins::Name::XP11 || name == Pins::Name::XP8){
@@ -65,12 +60,4 @@ int AngleSensorAdapter::getAngle() {
     }
 
     return _lastAngle;
-}
-
-bool AngleSensorAdapter::_isBeginAdapter() const {
-    if(_isBegin == false) {
-        LOG_ERR_F("%s не было вызова begin() Класс не проинициализирован", _objName);
-        return false;
-    }
-    return true;
 }

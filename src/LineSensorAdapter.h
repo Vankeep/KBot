@@ -13,11 +13,11 @@
  */
 
 #pragma once
-#include "config.h"
+#include "BaseAdapter.h"
 
-class LineSensorAdapter {
+class LineSensorAdapter : public BaseAdapter{
 public:
-    LineSensorAdapter(const char* objName);
+    LineSensorAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(Pins::Name name);
     void tick();
     bool isOnLine();
@@ -25,7 +25,6 @@ public:
     bool isLost();
 
 private:
-    char _objName[32];
     // Гистерезис
     static constexpr int THRESHOLD_LOW  = 1800;
     static constexpr int THRESHOLD_HIGH = 2300;
@@ -38,7 +37,6 @@ private:
     static constexpr uint8_t ADC_SAMPLES = 5;
 
     uint8_t _pin = 0;
-    bool _isBegin = false;
     int32_t _emaScaled = 0;
 
     bool _isOnLine = false;
@@ -50,5 +48,4 @@ private:
     uint8_t _stableCount = 0;   // счётчик стабильных тиков
 
     int _readMedian();
-    bool _isBeginAdapter() const;
 };

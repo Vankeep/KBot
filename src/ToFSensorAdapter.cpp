@@ -19,6 +19,7 @@
 #define VL53L0X_REG_RESULT_RANGE_STATUS     0x14
 
 void ToFSensorAdapter::begin(uint8_t address) {
+    // TODO добавить проверкку на инициализицию
     _address = address;
     _lastDistance = 0;
     _candidateDistance = -1;
@@ -26,6 +27,7 @@ void ToFSensorAdapter::begin(uint8_t address) {
 }
 
 long ToFSensorAdapter::getDistanceMm() {
+    // TODO добавить проверкку на инициализицию
     uint16_t raw = _readRangeMm();
     if (raw == 0 || raw > 2000) return _lastDistance;
 

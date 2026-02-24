@@ -13,7 +13,13 @@
 */
 #include "SonicAdapter.h"
 
+void SonicAdapter::begin() { 
+    _sensor.begin(); 
+    // TODO передалать класс по принципу остальных. Внедрить библиотеку https://github.com/m5stack/M5Unit-Sonic/blob/master/src/Unit_Sonic.h
+}
+
 long SonicAdapter::getDistanceMm(){
+    // TODO добавить проверку на инициализиацию
    long distance = (long)_sensor.getDistance();
    if (distance >= 4500) {
        return _lastDistance;

@@ -12,18 +12,17 @@
 * GNU General Public License for more details.
 */
 #pragma once
-#include "config.h"
+#include "BaseAdapter.h"
 
-class MboardLedAdapter {
+class MboardLedAdapter : public BaseAdapter{
 public:
-    MboardLedAdapter(const char* objName);
+    MboardLedAdapter(const char* objName) : BaseAdapter(objName) {}
     void color(Led::Name name, int red, int green, int blue);
     void color(Led::Name name, Led::Color color);
     void colorAll(Led::Color color);
     void off(Led::Name name);
     void offAll();
 private:
-    char _objName[32];
     uint32_t _getColorUint(uint8_t r, uint8_t g, uint8_t b) { return ((uint32_t)r << 16) | ((uint32_t)g << 8) | b; }
     bool _isValide(int red, int green, int blue);
 };

@@ -14,11 +14,6 @@
 #include "RgbLedAdapter.h"
 #include <M5Unified.h>
 
-RgbLedAdapter::RgbLedAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void RgbLedAdapter::begin(Pins::Name name, int numLeds) {
     if(numLeds < 1) {
         LOG_ERR_F("%s.begin() Аргумент numLeds не может быть менее 1", _objName);
@@ -124,11 +119,4 @@ bool RgbLedAdapter::_isValideRgb(int r, int g, int b) const {
         LOG_ERR_F("%s Цвет не может быть менее 0 или более 255", _objName);
         return false;
     }
-}
-
-bool RgbLedAdapter::_isBeginAdapter() const {
-    if(_isBegin == false) {
-        LOG_ERR_F("%s не было вызова begin(). Класс не проинициализирован", _objName);
-    }
-    return _isBegin;
 }

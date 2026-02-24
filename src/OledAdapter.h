@@ -12,11 +12,12 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include <M5Unified.h>
 
-class OledAdapter {
+class OledAdapter : public BaseAdapter{
 public:
-    OledAdapter(const char* objName);
+    OledAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin();
     void printStr1(const String& text);
     void printStr1(const char* text);
@@ -49,6 +50,5 @@ public:
     void clear();
 
 private:
-    char _objName[32];
     void _drawLine(uint8_t line, const char* text);
 };

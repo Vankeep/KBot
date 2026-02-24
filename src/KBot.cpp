@@ -33,7 +33,14 @@ KBot::KBot()
     , angleSensor2("angleSensor2")
     , angleSensor3("angleSensor3")
     , angleSensor4("angleSensor4")
-    , servo("servo"){}
+    , servo("servo")
+    , ultrasonic("ultrasonic")
+    , button1("button1")
+    , button2("button2")
+    , limitSwitch1("limitSwitch1")
+    , limitSwitch2("limitSwitch2")
+    , tof("tof")
+    , wheel("wheel"){}
 
 
 void KBot::begin() {

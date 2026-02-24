@@ -15,17 +15,17 @@
 #include "state.h"
 
 void WheelsAdapter::drive(int left, int right){
-    if( left > WHEEL_SPEED_MAX || left < WHEEL_SPEED_MIN ||
-        right > WHEEL_SPEED_MAX || right < WHEEL_SPEED_MIN){ return; }
+    if(!_isValidateSpeed(left, "left")) return;
+    if(!_isValidateSpeed(right, "right")) return;
 
-        State::setWheelSpeed(Wheel::Name::XP14A, left);
-        State::setWheelSpeed(Wheel::Name::XP14B, left);
-        State::setWheelSpeed(Wheel::Name::XP15A, right);
-        State::setWheelSpeed(Wheel::Name::XP15B, right);
+    State::setWheelSpeed(Wheel::Name::XP14A, left);
+    State::setWheelSpeed(Wheel::Name::XP14B, left);
+    State::setWheelSpeed(Wheel::Name::XP15A, right);
+    State::setWheelSpeed(Wheel::Name::XP15B, right);
 }
 
 void WheelsAdapter::drive(Wheel::Name name, int speed){
-    if(speed > WHEEL_SPEED_MAX || speed < WHEEL_SPEED_MIN ) return;
+    if(!_isValidateSpeed(speed, "speed")) return;
     State::setWheelSpeed(name, speed);
 }
 
@@ -38,4 +38,13 @@ void WheelsAdapter::stopAll(){
     State::setWheelSpeed(Wheel::Name::XP14B, 0);
     State::setWheelSpeed(Wheel::Name::XP15A, 0);
     State::setWheelSpeed(Wheel::Name::XP15B, 0);
+}
+
+bool WheelsAdapter::_isValidateSpeed(int speed, const char* paramName) {
+    if(speed < WHEEL_SPEED_MIN || speed > WHEEL_SPEED_MAX) {
+        LOG_ERR_F("%s.drive() параметр %s должен быть в диапазоне [%d, %d], получено: %d",
+                        _objName, paramName, WHEEL_SPEED_MIN, WHEEL_SPEED_MAX, speed);
+        return false;
+    }
+    return true;
 }

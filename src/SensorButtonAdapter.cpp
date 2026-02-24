@@ -14,11 +14,6 @@
 #include "SensorButtonAdapter.h"
 #include "config.h"
 
-SensorButtonAdapter::SensorButtonAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void SensorButtonAdapter::begin(uint8_t slot) {
     _w = 152;
     _h = 48;

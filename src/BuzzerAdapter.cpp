@@ -14,11 +14,6 @@
 #include "BuzzerAdapter.h"
 #include <M5Unified.h>
 
-BuzzerAdapter::BuzzerAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void BuzzerAdapter::begin(Pins::Name name) {
     if(_isBegin == true) {
         LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
@@ -73,11 +68,4 @@ void BuzzerAdapter::noTone() {
     ledcWrite(_ledChannel, 0);
     _playing = false;
     _toneEndTime = 0;
-}
-
-bool BuzzerAdapter::_isBeginAdapter() const {
-    if(_isBegin == false) {
-        LOG_ERR_F("%s не было вызова begin() Класс не проинициализирован", _objName);
-    }
-    return _isBegin;
 }

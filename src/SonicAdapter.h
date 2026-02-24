@@ -12,13 +12,15 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include <Unit_Sonic.h>
 
-class SonicAdapter {
+class SonicAdapter : public BaseAdapter{
 public:
-    void begin() { _sensor.begin(); }
-
+    SonicAdapter(const char* objName) : BaseAdapter(objName) {}
+    void begin();
     long getDistanceMm();
+    
 private:
     SONIC_I2C _sensor;
     long _lastDistance = 0;

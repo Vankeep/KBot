@@ -1,10 +1,5 @@
 #include "LineSensorAdapter.h"
 
-LineSensorAdapter::LineSensorAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void LineSensorAdapter::begin(Pins::Name name) {
     if (name == Pins::Name::XP8  || name == Pins::Name::XP10 || 
         name == Pins::Name::XP11 || name == Pins::Name::XP13) {
@@ -110,11 +105,4 @@ int LineSensorAdapter::_readMedian() {
     }
 
     return buf[ADC_SAMPLES / 2];
-}
-
-bool LineSensorAdapter::_isBeginAdapter() const{
-    if(_isBegin == false) {
-        LOG_ERR_F("%s не было вызова begin. Класс не проинициализирован", _objName);
-    }
-    return _isBegin;
 }

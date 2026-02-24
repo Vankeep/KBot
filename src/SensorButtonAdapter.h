@@ -12,17 +12,17 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include <M5Unified.h>
 
-class SensorButtonAdapter {
+class SensorButtonAdapter : public BaseAdapter {
 public:
-    SensorButtonAdapter(const char* objName);
+    SensorButtonAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(uint8_t slot);
     void setText(const char* text);
     bool isClick();
 
 private:
-    char _objName[32];
     int16_t _x, _y, _w, _h;
     char _text[20];
     bool _lastState = false;

@@ -12,14 +12,14 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include "config.h"
 
-class ServoAdapter {
+class ServoAdapter : public BaseAdapter{
 public:
-    ServoAdapter(const char* objName);
+    ServoAdapter(const char* objName) : BaseAdapter(objName) {}
+    // TODO реализовать метод begin который будет проверять State на предмет инициализации последнего
     void setAngle(Servos::Name name, int angle);
     int getAngle(Servos::Name name);
     void goHome();
-private:
-    char _objName[32];
 };

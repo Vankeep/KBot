@@ -14,11 +14,6 @@
 #include "MboardLedAdapter.h"
 #include "state.h"
 
-MboardLedAdapter::MboardLedAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void MboardLedAdapter::color(Led::Name name, int red, int green, int blue){
     if(!_isValide(red, green, blue)) return;
     State::setLedColor(name, _getColorUint(red, green, blue));

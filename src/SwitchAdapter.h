@@ -12,10 +12,12 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include "config.h"
 
-class SwitchAdapter {
+class SwitchAdapter: public BaseAdapter {
 public:
+    SwitchAdapter(const char* objName) : BaseAdapter(objName) {};
     void begin(Pins::Name name, bool pullUp = true);
     void tick();
 
@@ -24,7 +26,6 @@ public:
     bool isHeld();      // true пока удерживается
 
 private:
-    bool _isBegin = false;
     uint8_t _pin;
     bool _pullUp = true;
 

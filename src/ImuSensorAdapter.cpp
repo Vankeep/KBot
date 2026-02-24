@@ -15,11 +15,6 @@
 #include <Wire.h>
 #include <math.h>
 
-ImuSensorAdapter::ImuSensorAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void ImuSensorAdapter::begin(uint8_t address) {
     _address = address;
 
@@ -135,11 +130,4 @@ void ImuSensorAdapter::_readBlock(uint8_t reg, uint8_t count, uint8_t* buf) {
     for (uint8_t i = 0; i < count && Wire.available(); i++) {
         buf[i] = Wire.read();
     }
-}
-
-bool ImuSensorAdapter::_isBeginAdapter() const {
-    if (_isBegin == false) {
-        LOG_ERR_F("%s не обнаружен на шине I2C", _objName);
-    }
-    return _isBegin;
 }

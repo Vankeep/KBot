@@ -12,23 +12,19 @@
 * GNU General Public License for more details.
 */
 #pragma once
-#include "config.h"
+#include "BaseAdapter.h"
 
-class AngleSensorAdapter {
+class AngleSensorAdapter : public BaseAdapter{
 public:
-    AngleSensorAdapter(const char* objName);
+    AngleSensorAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(Pins::Name name);
     int getAngle();
 
 private:
-    char _objName[32];
-    bool _isBegin = false;
     uint8_t _pin;
     int _lastAngle = 0;
     int _candidateAngle = -1;
     unsigned long _candidateTime = 0;
     static const unsigned long DEBOUNCE_MS = 150;
     static const int TOLERANCE = 2;
-
-    bool _isBeginAdapter() const;
 };

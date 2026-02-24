@@ -12,12 +12,17 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include "config.h"
 
-class WheelsAdapter {
+class WheelsAdapter : public BaseAdapter{
 public:
+    WheelsAdapter(const char* objName) : BaseAdapter(objName) {}
     void drive(int left, int right);
     void drive(Wheel::Name name, int speed);
     void stop(Wheel::Name name);
     void stopAll();
+
+private:
+    bool _isValidateSpeed(int speed, const char* paramName);
 };

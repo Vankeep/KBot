@@ -12,10 +12,12 @@
 * GNU General Public License for more details.
 */
 #pragma once
+#include "BaseAdapter.h"
 #include "config.h"
 
-class ToFSensorAdapter {
+class ToFSensorAdapter : public BaseAdapter{
 public:
+    ToFSensorAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(uint8_t address = 0x29);
     long getDistanceMm(); 
 

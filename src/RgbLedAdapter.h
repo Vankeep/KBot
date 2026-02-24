@@ -12,12 +12,12 @@
 * GNU General Public License for more details.
 */
 #pragma once
-#include "config.h"
+#include "BaseAdapter.h"
 #include <Adafruit_NeoPixel.h>
 
-class RgbLedAdapter {
+class RgbLedAdapter : public BaseAdapter{
 public:
-    RgbLedAdapter(const char* objName);
+    RgbLedAdapter(const char* objName) : BaseAdapter(objName) {}
     void begin(Pins::Name name, int numLeds = 3);
     void tick();
     void setColor(int pixel, int r, int g, int b);
@@ -29,12 +29,9 @@ public:
     int getNumLeds() const;
 
 private:
-    char _objName[32];
-    bool _isBegin = false;
     bool _dirty = false;
     int _numLeds = 0;
     Adafruit_NeoPixel* _pixels = nullptr;
 
     bool _isValideRgb(int r, int g, int b) const;
-    bool _isBeginAdapter() const;
 };

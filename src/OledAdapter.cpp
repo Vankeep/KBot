@@ -19,11 +19,6 @@
 #define LINE_H        22
 #define LINE_PAD      3
 
-OledAdapter::OledAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void OledAdapter::begin() {
     // тень под контейнером
     M5.Lcd.fillRoundRect(2, SERIAL_Y + 2, 318, SERIAL_H, 6, 0x1082);

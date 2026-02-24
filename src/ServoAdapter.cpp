@@ -14,11 +14,6 @@
 #include "ServoAdapter.h"
 #include "state.h"
 
-ServoAdapter::ServoAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void ServoAdapter::setAngle(Servos::Name name, int angle){
     if(angle < Servos::minAngle(name) ) {
         LOG_ERR_F("%s.setAngle() параметр angle не может быть менее чем %d", _objName, (int)Servos::minAngle(name));

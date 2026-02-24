@@ -30,11 +30,6 @@
 #define TCS34725_PON        0x01
 #define TCS34725_AEN        0x02
 
-ColorSensorAdapter::ColorSensorAdapter(const char* objName) {
-    strncpy(_objName, objName, sizeof(_objName) - 1);
-    _objName[sizeof(_objName) - 1] = '\0';
-}
-
 void ColorSensorAdapter::begin(uint8_t address) {
     _address = address;
     _wr = _wg = _wb = 1;
@@ -161,11 +156,4 @@ uint16_t ColorSensorAdapter::_readWordAt(uint8_t reg) {
     uint8_t lo = Wire.read();
     uint8_t hi = Wire.read();
     return ((uint16_t)hi << 8) | lo;
-}
-
-bool ColorSensorAdapter::_isBeginAdapter() const {
-    if (_isBegin == false) {
-        LOG_ERR_F("%s не обнаружен на шине I2C", _objName);
-    }
-    return _isBegin;
 }
