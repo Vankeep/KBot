@@ -104,7 +104,7 @@ long getDistanceMm()
 **Методы:**
 ```cpp
 //Инициализация датчика на указанном разъеме
-void begin(Connector::Name pin);
+void begin(Connector::Name name);
 // Получить угол поворота в градусах (0-180)
 int getAngle();
 ```
@@ -127,7 +127,7 @@ int getAngle();
 **Методы:**
 ```cpp
 // Инициализация на указанном разъеме
-void begin(Connector::Name pin);
+void begin(Connector::Name name);
 // Возвращает true один раз при нажатии 
 bool isPressed();
 // Возвращает true один раз при отпускании
@@ -152,7 +152,7 @@ bool isHeld();
 **Методы:**
 ```cpp
 // Инициализация датчика на указанном разъеме
-void begin(Connector::Name pin);
+void begin(Connector::Name name);
 // Возвращает true, если датчик видит линию 
 bool isOnLine();
 // Возвращает true один раз при обнаружении линии
@@ -324,7 +324,7 @@ void offAll();
 **Методы:**
 ```cpp
 // Инициализация ленты (указать пин и количество светодиодов)
-void begin(Connector::Name pin, int numLeds = 3);
+void begin(Connector::Name name, int numLeds = 3);
 // Установить цвет одного светодиода (0-255 для каждого цвета)
 void setColor(int pixel, int r, int g, int b);
 // Установить готовый цвет
@@ -360,7 +360,7 @@ int getNumLeds();
 **Методы:**
 ```cpp
 // Инициализация зуммера на указанном разъеме
-void begin(Connector::Name pin);
+void begin(Connector::Name name);
 // Воспроизвести тон с указанной частотой (в Гц) и длительностью (в мс). Если duration = 0, тон будет звучать постоянно
 void tone(int frequency, unsigned long duration = 0);
 // Остановить воспроизведение звука
