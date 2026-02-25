@@ -78,7 +78,7 @@ long getDistanceMm();
 long getDistanceMm()
 ----
 
-**Пример использования:** `tof.ino`
+**Пример использования:** link:examples/tof/tof.ino[tof.ino]
 
 <<Содержание,↑ К содержанию>>
 
