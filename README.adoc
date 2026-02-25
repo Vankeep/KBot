@@ -1,5 +1,6 @@
 = KBot
 :toc: macro
+:toc-title!:
 :toclevels: 2
 :icons: font
 :source-highlighter: highlight.js
@@ -12,7 +13,9 @@ image::img/img0.png[]
 
 Перед началом работы необходимо установить и настроить Arduino IDE. Подробная инструкция: link:ARDUINO_SETUP.md[**Установка и настройка Arduino IDE**]
 
+[[contents]]
 == Содержание
+
 toc::[]
 
 == API
