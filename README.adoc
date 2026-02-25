@@ -56,7 +56,7 @@ IMPORTANT: В функции `loop()` обязательно вызывайте 
 long getDistanceMm();
 ----
 
-**Пример использования:** link:examples/sonar/sonar.ino[sonar.ino]
+Пример использования: link:examples/sonar/sonar.ino[sonar.ino]
 
 '''
 
@@ -75,7 +75,7 @@ long getDistanceMm();
 long getDistanceMm()
 ----
 
-**Пример использования:** link:examples/tof/tof.ino[tof.ino]
+Пример использования: link:examples/tof/tof.ino[tof.ino]
 
 '''
 
@@ -96,7 +96,7 @@ void begin(Connector::Name name);
 int getAngle();
 ----
 
-**Пример использования:** link:examples/angleSensor/angleSensor.ino[angleSensor.ino]
+Пример использования: link:examples/angleSensor/angleSensor.ino[angleSensor.ino]
 
 '''
 
@@ -124,7 +124,7 @@ bool isReleased();
 bool isHeld();
 ----
 
-**Пример использования:** link:examples/button/button.ino[button.ino]
+Пример использования: link:examples/button/button.ino[button.ino]
 
 '''
 
@@ -149,7 +149,7 @@ bool isDetected();
 bool isLost();
 ----
 
-**Пример использования:** link:examples/lineSensor/lineSensor.ino[lineSensor.ino]
+Пример использования: link:examples/lineSensor/lineSensor.ino[lineSensor.ino]
 
 '''
 
@@ -180,7 +180,7 @@ bool isWhite(int r, int g, int b);
 bool isBlack(int r, int g, int b);
 ----
 
-**Пример использования:** link:examples/colorSensor/colorSensor.ino[colorSensor.ino]
+Пример использования: link:examples/colorSensor/colorSensor.ino[colorSensor.ino]
 
 '''
 
@@ -213,7 +213,7 @@ int getGyroY();
 int getGyroZ();
 ----
 
-**Пример использования:** link:examples/imu/imu.ino[imu.ino]
+Пример использования: link:examples/imu/imu.ino[imu.ino]
 
 '''
 
@@ -238,7 +238,7 @@ void stop(Wheel::Name motor);
 void stopAll();
 ----
 
-**Пример использования:** link:examples/wheel/wheel.ino[wheel.ino]
+Пример использования: link:examples/wheel/wheel.ino[wheel.ino]
 
 '''
 
@@ -263,7 +263,7 @@ int getAngle();
 void goHome();
 ----
 
-**Пример использования:** link:examples/servo/servo.ino[servo.ino]
+Пример использования: link:examples/servo/servo.ino[servo.ino]
 
 '''
 
@@ -292,7 +292,7 @@ void offAll();
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Пример использования:** link:examples/kbotBoardLed/kbotBoardLed.ino[kbotBoardLed.ino]
+Пример использования: link:examples/kbotBoardLed/kbotBoardLed.ino[kbotBoardLed.ino]
 
 '''
 
@@ -327,7 +327,7 @@ int getNumLeds();
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Пример использования:** link:examples/rgbLed/rgbLed.ino[rgbLed.ino]
+Пример использования: link:examples/rgbLed/rgbLed.ino[rgbLed.ino]
 
 '''
 
@@ -350,7 +350,7 @@ void tone(int frequency, unsigned long duration = 0);
 void noTone();
 ----
 
-**Пример использования:** link:examples/buzzer/buzzer.ino[buzzer.ino]
+Пример использования: link:examples/buzzer/buzzer.ino[buzzer.ino]
 
 '''
 
@@ -411,7 +411,7 @@ void setText(const char* text);
 bool isClick();
 ----
 
-**Пример использования:** link:examples/sensorButton/sensorButton.ino[sensorButton.ino]
+Пример использования: link:examples/sensorButton/sensorButton.ino[sensorButton.ino]
 
 '''
 
@@ -440,7 +440,7 @@ bool isActive();
 bool isDone();
 ----
 
-**Пример использования:** link:examples/timer/timer.ino[timer.ino]
+Пример использования: link:examples/timer/timer.ino[timer.ino]
 
 '''
 
