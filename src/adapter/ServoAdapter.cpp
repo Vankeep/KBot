@@ -14,25 +14,33 @@
 #include "ServoAdapter.h"
 #include "../state.h"
 
-void ServoAdapter::setAngle(ServoPin::Name name, int angle){
-    if(angle < ServoPin::minAngle(name) ) {
-        LOG_ERR_F("%s.setAngle() параметр angle не может быть менее чем %d", _objName, (int)ServoPin::minAngle(name));
+void ServoAdapter::begin(ServoPin::Name name){
+    if(_isBegin == true) {
+        LOG_ERR_F("%s уже проинициализирован. Повторная инициализация игнорируется", _objName);
         return;
     }
-    if(angle > ServoPin::maxAngle(name)) {
-        LOG_ERR_F("%s.setAngle() параметр angle не может быть более чем %d", _objName, (int)ServoPin::maxAngle(name));
-        return;
-    }
-    State::setServoAngle(name, angle);
+    _name = name;
+    // TODO реализовать проверку State на предмет инициализации
+    _isBegin = true;
+    LOG_INFO_F("%s проинициализирован", _objName);
 }
 
-int ServoAdapter::getAngle(ServoPin::Name name){
-    return (int)State::getServoAngle(name);
+void ServoAdapter::setAngle(int angle){
+    if(angle < ServoPin::minAngle(_name) ) {
+        LOG_ERR_F("%s.setAngle() параметр angle не может быть менее чем %d", _objName, (int)ServoPin::minAngle(_name));
+        return;
+    }
+    if(angle > ServoPin::maxAngle(_name)) {
+        LOG_ERR_F("%s.setAngle() параметр angle не может быть более чем %d", _objName, (int)ServoPin::maxAngle(_name));
+        return;
+    }
+    State::setServoAngle(_name, angle);
+}
+
+int ServoAdapter::getAngle(){
+    return (int)State::getServoAngle(_name);
 }
 
 void ServoAdapter::goHome(){
-    for(uint8_t i = 0; i < ServoPin::Name::COUNT; i++){
-        ServoPin::Name name = ServoPin::getName(i);
-        State::setServoAngle(name, ServoPin::initAngle(name));
-    }
+    State::setServoAngle(_name, ServoPin::initAngle(_name));
 }

@@ -37,7 +37,10 @@ public:
     KBot();
     SonicAdapter ultrasonic;
     WheelsAdapter wheel;
-    ServoAdapter servo;
+    ServoAdapter servo1;
+    ServoAdapter servo2;
+    ServoAdapter servo3;
+    ServoAdapter servo4;
     SensorButtonAdapter sensorBTN1;
     SensorButtonAdapter sensorBTN2;
     SensorButtonAdapter sensorBTN3;
