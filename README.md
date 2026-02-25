@@ -265,7 +265,7 @@ void stopAll();
 
 **Подключение:** Разъемы SRV1, SRV2, SRV3, SRV4
 
-**Объект:** `servo`
+**Объекты:** `servo1`, `servo2`, `servo3`, `servo4`
 
 **Методы:**
 ```cpp
