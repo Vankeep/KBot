@@ -38,7 +38,6 @@ void loop() {
 
 IMPORTANT: В функции `loop()` обязательно вызывайте `bot.update()` в начале!
 
-<<Содержание,↑ К содержанию>>
 
 '''
 
@@ -57,9 +56,7 @@ IMPORTANT: В функции `loop()` обязательно вызывайте 
 long getDistanceMm();
 ----
 
-**Пример использования:** `sonar.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/sonar/sonar.ino[sonar.ino]
 
 '''
 
@@ -80,8 +77,6 @@ long getDistanceMm()
 
 **Пример использования:** link:examples/tof/tof.ino[tof.ino]
 
-<<Содержание,↑ К содержанию>>
-
 '''
 
 == Датчик угла
@@ -101,9 +96,7 @@ void begin(Connector::Name name);
 int getAngle();
 ----
 
-**Пример использования:** `angleSensor.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/angleSensor/angleSensor.ino[angleSensor.ino]
 
 '''
 
@@ -131,9 +124,7 @@ bool isReleased();
 bool isHeld();
 ----
 
-**Пример использования:** `button.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/button/button.ino[button.ino]
 
 '''
 
@@ -158,9 +149,7 @@ bool isDetected();
 bool isLost();
 ----
 
-**Пример использования:** `lineSensor.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/lineSensor/lineSensor.ino[lineSensor.ino]
 
 '''
 
@@ -191,9 +180,7 @@ bool isWhite(int r, int g, int b);
 bool isBlack(int r, int g, int b);
 ----
 
-**Пример использования:** `colorSensor.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/colorSensor/colorSensor.ino[colorSensor.ino]
 
 '''
 
@@ -226,9 +213,7 @@ int getGyroY();
 int getGyroZ();
 ----
 
-**Пример использования:** `imu.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/imu/imu.ino[imu.ino]
 
 '''
 
@@ -253,9 +238,7 @@ void stop(Wheel::Name motor);
 void stopAll();
 ----
 
-**Пример использования:** `wheel.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/wheel/wheel.ino[wheel.ino]
 
 '''
 
@@ -280,9 +263,7 @@ int getAngle();
 void goHome();
 ----
 
-**Пример использования:** `servo.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/servo/servo.ino[servo.ino]
 
 '''
 
@@ -311,9 +292,7 @@ void offAll();
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Пример использования:** `kbotBoardLed.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/kbotBoardLed/kbotBoardLed.ino[kbotBoardLed.ino]
 
 '''
 
@@ -348,9 +327,7 @@ int getNumLeds();
 
 **Готовые цвета:** `Led::Color::RED`, `Led::Color::GREEN`, `Led::Color::BLUE`, `Led::Color::YELLOW`, `Led::Color::CYAN`, `Led::Color::MAGENTA`, `Led::Color::BLACK`
 
-**Пример использования:** `rgbLed.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/rgbLed/rgbLed.ino[rgbLed.ino]
 
 '''
 
@@ -373,9 +350,7 @@ void tone(int frequency, unsigned long duration = 0);
 void noTone();
 ----
 
-**Пример использования:** `buzzer.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/buzzer/buzzer.ino[buzzer.ino]
 
 '''
 
@@ -414,12 +389,10 @@ bot.oled.printStr3(987654L);
 // Дробные числа
 bot.oled.printStr4(3.14);
 // Дробные числа указанием точности
-bot.oled.printStr4(3.14159, 3);
+bot.oled.printStr4(3.14159, 3);TODO
 ----
 
 **Пример:** TODO добавить пример
-
-<<Содержание,↑ К содержанию>>
 
 '''
 
@@ -438,9 +411,7 @@ void setText(const char* text);
 bool isClick();
 ----
 
-**Пример использования:** `sensorButton.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/sensorButton/sensorButton.ino[sensorButton.ino]
 
 '''
 
@@ -469,9 +440,7 @@ bool isActive();
 bool isDone();
 ----
 
-**Пример использования:** `timer.ino`
-
-<<Содержание,↑ К содержанию>>
+**Пример использования:** link:examples/timer/timer.ino[timer.ino]
 
 '''
 
@@ -496,8 +465,6 @@ bool isDone();
 | Светодиоды платы | DA9, DA14, DA20, DA26 (встроенные)
 | Сенсорные кнопки | Встроенные в экран M5Stack
 |===
-
-<<Содержание,↑ К содержанию>>
 
 == Лицензия
 
