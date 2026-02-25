@@ -9,15 +9,17 @@
 
 image::img/img0.png[]
 
+[discrete]
 == Быстрый старт
 
 Перед началом работы необходимо установить и настроить Arduino IDE. Подробная инструкция: link:ARDUINO_SETUP.md[**Установка и настройка Arduino IDE**]
 
-[[contents]]
+[discrete]
 == Содержание
 
 toc::[]
 
+[discrete]
 == API
 
 == Инициализация
@@ -469,6 +471,7 @@ bool isDone();
 | Сенсорные кнопки | Встроенные в экран M5Stack
 |===
 
+[discrete]
 == Лицензия
 
 Образовательный проект Kobak
