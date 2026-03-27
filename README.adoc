@@ -449,6 +449,41 @@ bool isDone();
 
 '''
 
+=== WiFi пульт управления
+
+Беспроводное управление роботом через WiFi с веб-интерфейсом и виртуальным джойстиком.
+
+Объект:: `wifiRemote`
+
+Методы::
+[source,cpp]
+----
+// Инициализация WiFi точки доступа (с параметрами по умолчанию)
+void begin(
+    const char* ssid = "kbot",
+    const char* password = "12345678",
+    IPAddress ip = IPAddress(10, 0, 0, 1),
+    IPAddress gateway = IPAddress(10, 0, 0, 1),
+    IPAddress subnet = IPAddress(255, 255, 255, 0)
+);
+// Получить значения скоростей моторов от пульта (-200...200)
+void getMotorValues(int& left, int& right);
+// Получить IP адрес точки доступа
+String getIPAddress();
+// Получить имя WiFi сети (SSID)
+String getSSID();
+// Получить пароль WiFi сети
+String getPassword();
+// Получить IP адрес шлюза
+String getGateway();
+// Получить маску подсети
+String getSubnet();
+----
+
+Пример использования: link:examples/wifiRemote/wifiRemote.ino[wifiRemote.ino]
+
+'''
+
 === Таблица совместимости датчиков и разъемов
 
 [cols="1,1", options="header"]
@@ -469,6 +504,7 @@ bool isDone();
 | Моторы | XP14A, XP15A, XP14B, XP15B (встроенные)
 | Светодиоды платы | DA9, DA14, DA20, DA26 (встроенные)
 | Сенсорные кнопки | Встроенные в экран M5Stack
+| WiFi пульт управления | Беспроводной (WiFi)
 |===
 
 [discrete]
