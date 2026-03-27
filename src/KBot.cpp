@@ -43,7 +43,8 @@ KBot::KBot()
     , limitSwitch1("limitSwitch1")
     , limitSwitch2("limitSwitch2")
     , tof("tof")
-    , wheel("wheel"){}
+    , wheel("wheel")
+    , wifiControl("wifiControl"){}
 
 
 void KBot::begin() {
@@ -100,6 +101,8 @@ void KBot::update() {
     buzzer.tick();
 
     imu.tick();
+
+    wifiControl.tick();
 
     _initConnection();
 

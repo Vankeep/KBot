@@ -31,6 +31,7 @@
 #include "adapter/RgbLedAdapter.h"
 #include "adapter/BuzzerAdapter.h"
 #include "adapter/ImuSensorAdapter.h"
+#include "adapter/WifiControlPanelAdapter.h"
 
 class KBot {
 public:
@@ -68,6 +69,7 @@ public:
     RgbLedAdapter rgbLed;
     BuzzerAdapter buzzer;
     ImuSensorAdapter imu;
+    WifiControlPanelAdapter wifiControl;
 
     void begin();
     void update();
