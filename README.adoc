@@ -453,7 +453,7 @@ bool isDone();
 
 Беспроводное управление роботом через WiFi с веб-интерфейсом и виртуальным джойстиком.
 
-Объект:: `wifiRemote`
+Объект:: `wifiControl`
 
 Методы::
 [source,cpp]
@@ -480,7 +480,7 @@ String getGateway();
 String getSubnet();
 ----
 
-Пример использования: link:examples/wifiRemote/wifiRemote.ino[wifiRemote.ino]
+Пример использования: link:examples/wifiControl/wifiControl.ino[wifiControl.ino]
 
 '''
 
