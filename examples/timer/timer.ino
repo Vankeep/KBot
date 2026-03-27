@@ -1,30 +1,40 @@
-#include <KBot.h>
+/*
+ * Пример использования таймеров для управления светодиодами
+ *
+ * Подключение:
+ * 1. Загрузите скетч на M5Stack Core2
+ * 2. Светодиоды загорятся зеленым на 3 секунды
+ * 3. Затем начнут мигать пурпурным цветом каждые 500мс
+ */
 
-KBot bot;
+#include <KBot.h>  // Подключаем библиотеку для работы с роботом KBot
 
-bool isOn;
+KBot bot;  // Создаем объект робота
+
+bool isOn;  // Переменная хранит состояние светодиодов: включены (true) или выключены (false)
 
 void setup(){
-    bot.begin();
-    bot.timer1.startOnce(3000);
-    bot.kbotBoardLed.colorAll(Led::Color::GREEN);
-    isOn = false;
+    bot.begin();  // Инициализируем робота
+
+    bot.timer1.startOnce(3000);  // Запускаем таймер1 один раз на 3000мс (3 секунды)
+    bot.kbotBoardLed.colorAll(Led::Color::GREEN);  // Включаем все светодиоды зеленым цветом
+    isOn = false;  // Светодиоды пока не мигают
 }
 
 void loop(){
-    bot.update();
+    bot.update();  // Обновляем состояние всех датчиков и таймеров (вызываем каждый цикл!)
 
-    if(bot.timer1.isDone()) {
-        bot.timer1.stop();
-        bot.timer2.startEvery(500);
+    if(bot.timer1.isDone()) {  // Проверяем, истекли ли 3 секунды
+        bot.timer1.stop();  // Останавливаем таймер1 (он больше не нужен)
+        bot.timer2.startEvery(500);  // Запускаем таймер2, который срабатывает каждые 500мс
     }
-    
-    if(bot.timer2.isReady()){
-        if(isOn){
-            bot.kbotBoardLed.colorAll(Led::Color::BLACK);
-        } else {
-            bot.kbotBoardLed.colorAll(Led::Color::MAGENTA);
+
+    if(bot.timer2.isReady()){  // Проверяем, прошло ли 500мс с последнего срабатывания
+        if(isOn){  // Если светодиоды сейчас включены
+            bot.kbotBoardLed.colorAll(Led::Color::BLACK);  // Выключаем их (черный = выкл)
+        } else {  // Если светодиоды сейчас выключены
+            bot.kbotBoardLed.colorAll(Led::Color::MAGENTA);  // Включаем пурпурным цветом
         }
-        isOn = !isOn;
+        isOn = !isOn;  // Переключаем состояние (если было true, станет false и наоборот)
     }
 }

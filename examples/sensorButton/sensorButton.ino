@@ -1,30 +1,39 @@
-#include <KBot.h>
+/*
+ * Пример использования сенсорной кнопки на экране для управления движением робота
+ *
+ * Подключение:
+ * 1. Загрузите скетч на M5Stack Core2
+ * 2. Нажмите кнопку "KBot GO" на экране для запуска робота
+ * 3. Нажмите кнопку "KBot STOP" для остановки
+ */
 
-KBot bot;
+#include <KBot.h>  // Подключаем библиотеку для работы с роботом KBot
 
-bool isKbotGo;
+KBot bot;  // Создаем объект робота
+
+bool isKbotGo;  // Переменная хранит состояние: едет робот (true) или стоит (false)
 
 void setup(){
-    bot.begin();
+    bot.begin();  // Инициализируем робота (запускаем все датчики и моторы)
 
-    isKbotGo = false;
-    bot.sensorBTN1.setText("KBot GO");
+    isKbotGo = false;  // В начале робот стоит на месте
+    bot.sensorBTN1.setText("KBot GO");  // Устанавливаем текст на первую кнопку экрана
 }
 
 void loop(){
-    bot.update();
+    bot.update();  // Обновляем состояние всех датчиков и кнопок (вызываем каждый цикл!)
 
-    if (bot.sensorBTN1.isClick()) {
-        if(isKbotGo){
-            bot.wheel.stopAll();
-            bot.sensorBTN1.setText("KBot GO");
-            bot.oled.printStr1("Wheels stop");
-        } else {
-            bot.wheel.drive(50, 50);
-            bot.sensorBTN1.setText("KBot STOP");
-            bot.oled.printStr1("Wheels drive 50 50 ");
+    if (bot.sensorBTN1.isClick()) {  // Проверяем, была ли нажата первая кнопка на экране
+        if(isKbotGo){  // Если робот сейчас едет
+            bot.wheel.stopAll();  // Останавливаем все моторы
+            bot.sensorBTN1.setText("KBot GO");  // Меняем текст кнопки на "GO"
+            bot.oled.printStr1("Wheels stop");  // Выводим на экран сообщение
+        } else {  // Если робот сейчас стоит
+            bot.wheel.drive(50, 50);  // Запускаем оба мотора со скоростью 50 (робот едет вперед)
+            bot.sensorBTN1.setText("KBot STOP");  // Меняем текст кнопки на "STOP"
+            bot.oled.printStr1("Wheels drive 50 50 ");  // Выводим на экран сообщение
         }
 
-        isKbotGo = !isKbotGo;
+        isKbotGo = !isKbotGo;  // Переключаем состояние (если было true, станет false и наоборот)
     }
 }

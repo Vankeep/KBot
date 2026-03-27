@@ -1,31 +1,45 @@
-#include <KBot.h>
+/*
+ * Пример использования датчика цвета для распознавания цветов
+ *
+ * Подключение:
+ * 1. Загрузите скетч на M5Stack Core2
+ * 2. При включении поднесите датчик к белой поверхности для калибровки
+ * 3. Подносите датчик к разным цветным поверхностям
+ * 4. На экране будет отображаться название цвета и значения RGB
+ */
 
-KBot bot;
+#include <KBot.h>  // Подключаем библиотеку для работы с роботом KBot
+
+KBot bot;  // Создаем объект робота
 
 void setup() {
-    bot.begin();
-    // Калибловка при включении по белому листу
+    bot.begin();  // Инициализируем робота
+
+    // Калибруем датчик по белому цвету (поднесите датчик к белой поверхности!)
+    // Это нужно для правильного определения остальных цветов
     bot.colorSensor.calibrateWhite();
-    
-    bot.timer1.startEvery(500);
+
+    bot.timer1.startEvery(500);  // Запускаем таймер, который срабатывает каждые 500 миллисекунд
 }
 
 void loop() {
-    bot.update();
+    bot.update();  // Обновляем состояние всех датчиков (вызываем каждый цикл!)
 
-    if (bot.timer1.isReady()) {
-        int r, g, b;
-        bot.colorSensor.getRGB(r, g, b);
+    if (bot.timer1.isReady()) {  // Проверяем, прошло ли 500 мс с последнего обновления
+        int r, g, b;  // Переменные для хранения значений красного, зеленого и синего
+        bot.colorSensor.getRGB(r, g, b);  // Считываем значения RGB с датчика цвета
 
-        const char* color = "???";
-        if      (bot.colorSensor.isRed(r, g, b))   color = "RED";
-        else if (bot.colorSensor.isGreen(r, g, b)) color = "GREEN";
-        else if (bot.colorSensor.isBlue(r, g, b))  color = "BLUE";
-        else if (bot.colorSensor.isWhite(r, g, b)) color = "WHITE";
-        else if (bot.colorSensor.isBlack(r, g, b)) color = "BLACK";
+        // Определяем название цвета
+        const char* color = "???";  // По умолчанию - неизвестный цвет
+        if      (bot.colorSensor.isRed(r, g, b))   color = "RED";    // Если красный
+        else if (bot.colorSensor.isGreen(r, g, b)) color = "GREEN";  // Если зеленый
+        else if (bot.colorSensor.isBlue(r, g, b))  color = "BLUE";   // Если синий
+        else if (bot.colorSensor.isWhite(r, g, b)) color = "WHITE";  // Если белый
+        else if (bot.colorSensor.isBlack(r, g, b)) color = "BLACK";  // Если черный
 
-        char buf[32];
+        // Формируем строку с названием цвета и значениями RGB
+        char buf[32];  // Буфер для формирования текста
         snprintf(buf, sizeof(buf), "%s %d %d %d", color, r, g, b);
-        bot.oled.printStr1(buf);
+        bot.oled.printStr1(buf);  // Выводим на первую строку экрана
     }
 }

@@ -1,33 +1,47 @@
-#include <KBot.h>
+/*
+ * Пример использования IMU (инерциального датчика) для отображения наклона и ускорения
+ *
+ * Подключение:
+ * 1. Загрузите скетч на M5Stack Core2
+ * 2. На экране будут отображаться данные о наклоне (Pitch, Roll) и ускорении (X, Y, Z)
+ * 3. Наклоняйте робота для изменения показаний
+ */
 
-KBot bot;
+#include <KBot.h>  // Подключаем библиотеку для работы с роботом KBot
+
+KBot bot;  // Создаем объект робота
 
 void setup() {
-    bot.begin();
-    bot.timer1.startEvery(100);
+    bot.begin();  // Инициализируем робота
+    bot.timer1.startEvery(100);  // Запускаем таймер, который срабатывает каждые 100 миллисекунд
 }
 
 void loop() {
-    bot.update();
+    bot.update();  // Обновляем состояние всех датчиков (вызываем каждый цикл!)
 
-    if (bot.timer1.isReady()) {
-        int pitch = bot.imu.getPitch();
-        int roll  = bot.imu.getRoll();
-        int ax    = bot.imu.getAccelX();
-        int ay    = bot.imu.getAccelY();
-        int az    = bot.imu.getAccelZ();
+    if (bot.timer1.isReady()) {  // Проверяем, прошло ли 100 мс с последнего обновления
+        // Считываем данные с IMU датчика
+        int pitch = bot.imu.getPitch();  // Наклон вперед-назад (градусы)
+        int roll  = bot.imu.getRoll();   // Наклон влево-вправо (градусы)
+        int ax    = bot.imu.getAccelX(); // Ускорение по оси X (мг - миллиграмм-сила)
+        int ay    = bot.imu.getAccelY(); // Ускорение по оси Y (мг)
+        int az    = bot.imu.getAccelZ(); // Ускорение по оси Z (мг)
 
-        char buf[32];
+        char buf[32];  // Буфер для формирования текста (массив символов)
 
+        // Формируем строку с наклоном и выводим на первую строку экрана
         snprintf(buf, sizeof(buf), "Naklon: %d", pitch);
         bot.oled.printStr1(buf);
 
+        // Формируем строку с креном и выводим на вторую строку экрана
         snprintf(buf, sizeof(buf), "Kren:   %d", roll);
         bot.oled.printStr2(buf);
 
+        // Формируем строку с ускорением X и Y и выводим на третью строку экрана
         snprintf(buf, sizeof(buf), "X:%d Y:%d", ax, ay);
         bot.oled.printStr3(buf);
 
+        // Формируем строку с ускорением Z и выводим на четвертую строку экрана
         snprintf(buf, sizeof(buf), "Z:%d", az);
         bot.oled.printStr4(buf);
     }
